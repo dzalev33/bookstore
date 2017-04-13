@@ -105,7 +105,7 @@ echo "
 				
 		
     
-           <tr><td>Slika</td><td>Title</td> <td>Price</td> <td>Language</td><td>Stock</td><td>category</td><td style=\"text-align:center\">edit</td><td style=\"text-align:center\">delete</td><td>multi Delete</td></tr>";
+           <tr><td>Slika</td><td>Title</td> <td>Price</td> <td>Language</td><td>Stock</td><td>category</td><td>Description</td><td style=\"text-align:center\">edit</td><td style=\"text-align:center\">delete</td><td>multi Delete</td></tr>";
 
 				$sql="SELECT * FROM book
 				INNER JOIN category ON category.`category_id` = book.`category_id`";
@@ -120,14 +120,14 @@ echo "
                   $booktype=$row->type;
                   $bookId=$row->book_id;
                   $Photo=$row->img_path;
-
+                    $description=$row->	description;
                     $bgcolor="yellow";
                     if($type==$_GET['id']) $bgcolor="blue";
         
                  //"upload/"
         $img_path=$settings['website_url']."upload/".$Photo;
 
-        echo " <tr><td><img src=\"$img_path\" width=\"40\" alt=\"$Photo\"></td><td>$BookTitle</td> <td>$bookPrice</td> <td>$BookLanguage</td><td>$bookStock</td><td>$booktype</td>
+        echo " <tr><td><img src=\"$img_path\" width=\"40\" alt=\"$Photo\"></td><td>$BookTitle</td> <td>$bookPrice</td> <td>$BookLanguage</td><td>$bookStock</td><td>$booktype</td><td>$description</td>
    <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/book/edit.php?id=$bookId\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
 
 
@@ -141,7 +141,7 @@ echo "
 
 
    echo "
-                               <tr><td colspan=\"8\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" /></td></tr>
+                               <tr><td colspan=\"9\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" /></td></tr>
 
 </table>
 

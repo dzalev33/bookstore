@@ -83,11 +83,12 @@ echo "
 	 
                <tr><td><input type=\"hidden\" name=\"action\" value=\"image\" /></td><td><input type=\"file\" name=\"my_field\" /></td></tr>
 	     
-    <tr><td>Book Title</td><td><input type=\"text\" name=\"Title\" value=\"\" /></td></tr>
-    <tr><td>Price</td><td><input type=\"text\" name=\"Price\" value=\"\" /></td></tr>
-    <tr><td>Language</td><td><input type=\"text\" name=\"Language\" value=\"\" /></td></tr>
-    <tr><td>Stock</td><td><input type=\"text\" name=\"Stock\" value=\"\"  /></td></tr>
-             <tr><td>category</td><td>
+            <tr><td>Book Title</td><td><input type=\"text\" name=\"Title\" value=\"\" /></td></tr>
+            <tr><td>Price</td><td><input type=\"text\" name=\"Price\" value=\"\" /></td></tr>
+            <tr><td>Language</td><td><input type=\"text\" name=\"Language\" value=\"\" /></td></tr>
+            <tr><td>Stock</td><td><input type=\"text\" name=\"Stock\" value=\"\"  /></td></tr>
+             <tr><td>Description</td><td><input type=\"text\" name=\"description\" value=\"\" /></td></tr>
+                     <tr><td>category</td><td>
              <select name=\"category_id\" >";
 
 

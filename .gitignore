@@ -1,3 +1,4 @@
 .cache/*
+.idea/*
 upload/*
-administration/includes/*
+administration/includes/settings.php

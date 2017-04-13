@@ -59,8 +59,8 @@ if ((isset($_POST['action']) ? $_POST['action'] : (isset($_GET['action']) ? $_GE
 }
 
 
-$sql="INSERT INTO book (`Title`, `Price`, `Language`, `Stock`, `category_id`, `img_path`)
-VALUES ('".$_POST['Title']."',".$_POST['Price'].",'".$_POST['Language']."',".$_POST['Stock'].",'".$_POST['category_id']."','".$handle->file_dst_name."')";
+$sql="INSERT INTO book (`Title`, `Price`, `Language`, `Stock`, `category_id`, `img_path`,`description`)
+VALUES ('".$_POST['Title']."',".$_POST['Price'].",'".$_POST['Language']."',".$_POST['Stock'].",'".$_POST['category_id']."','".$handle->file_dst_name."','".$_POST['description']."')";
       
 $connection->query($sql);//execute sql
 

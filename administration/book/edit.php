@@ -97,7 +97,7 @@ echo "
                   $bookStock=$row->Stock;
                   $BookcategoryId=$row->category_id;
                   $booktype=$row->type;
-                  
+                    $description=$row->description;
                   
                echo " 
                  <tr>
@@ -113,7 +113,7 @@ echo "
                 <input type=\"hidden\" name=\"id\" value=\"$bookId\" />
                <td>Stock</td> <td><input type=\"text\" name=\"Stock\" value=\"$bookStock\" /></td>
                 </tr>
-               
+             
                
                 <tr><td>category</td><td>
  
@@ -124,23 +124,27 @@ echo "
 
              while ($row_categoryType=$result_categoryType->fetch_object()){
 
-                 $selected="";//deklaracija i inicijalizacija
-                 
-                 //table category
-                 $type=$row_categoryType->type;
-                 $categoryID=$row_categoryType->category_id;
-                 
-                 //compare PK==FK
-                 if($categoryID==$BookcategoryId){$selected="selected";}
-                 if($categoryID!=$BookcategoryId){$selected="";}
+                     $selected="";//deklaracija i inicijalizacija
 
-                                 echo "<option value=\"$categoryID\" $selected>$type</option>";
+                     //table category
+                     $type=$row_categoryType->type;
+                     $categoryID=$row_categoryType->category_id;
+
+                     //compare PK==FK
+                     if($categoryID==$BookcategoryId){$selected="selected";}
+                     if($categoryID!=$BookcategoryId){$selected="";}
+                     echo "<option value=\"$categoryID\" $selected>$type</option>";
 
              }
+
+
     }
     echo "
 
   </select>
+    <tr>
+               	  <td>Description</td><td><input type=\"text\" name=\"Title\" value=\"$description\" /></td>
+               	</tr>
    			
                 
 

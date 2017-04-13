@@ -17,7 +17,7 @@ $sql="UPDATE book SET
 			Language='".$_POST['Language']."', 
 			Stock=".$_POST['Stock'].",
 			category_id=".$_POST['category_id']."
-						
+			description='".$_POST['description']."',
 			WHERE book_id=".$_POST['id'];
 
 
