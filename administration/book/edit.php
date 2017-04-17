@@ -114,8 +114,9 @@ echo "
                <td>Stock</td> <td><input type=\"text\" name=\"Stock\" value=\"$bookStock\" /></td>
                 </tr>
              
-               
+                   <tr> <td>Description</td><td><input type=\"text\" name=\"Title\" value=\"$description\" /></td>	</tr>
                 <tr><td>category</td><td>
+                
  
  <select  name=\"category_id\" >";
 
@@ -133,18 +134,17 @@ echo "
                      //compare PK==FK
                      if($categoryID==$BookcategoryId){$selected="selected";}
                      if($categoryID!=$BookcategoryId){$selected="";}
-                     echo "<option value=\"$categoryID\" $selected>$type</option>";
+                     echo "<option value=\"$categoryID\" $selected>$type</option> ";
 
              }
 
 
     }
+
     echo "
 
-  </select>
-    <tr>
-               	  <td>Description</td><td><input type=\"text\" name=\"Title\" value=\"$description\" /></td>
-               	</tr>
+ </select>
+
    			
                 
 
