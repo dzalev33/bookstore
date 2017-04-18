@@ -52,7 +52,7 @@
         </div>
         <div class="collapse navbar-collapse" id="mainNavBar">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="#">about</a></li>
                 <li><a href="#">contact</a></li>
             </ul>
@@ -81,9 +81,9 @@ WHERE author.author_id=".$_GET['id'];
         $bookCategory = $row->type;
         $avtor_name = $row->firstname;
         $avtor_lastname = $row->lastname;
-        $author_pic=$row->img_path;
+        $author_pic=$row->img_author;
         
-        $Photo = $row->img_path;
+        $Photo = $row->img_author;
         //"upload/"
 
         $img_path = $settings['website_url'] . "upload/" . $Photo;
@@ -91,7 +91,7 @@ WHERE author.author_id=".$_GET['id'];
     <div class=\"row\">
         <div class=\"col-md-7\">
             <a href=\"#\">
-                <img class=\"img-responsive\" src=\"$img_path\" alt=\"img_path\">
+                <img class=\"img-responsive\" src=\"$img_path\" alt=\"img_author\">
             </a>
         </div>
         <div class=\"col-md-5\">
@@ -116,7 +116,7 @@ WHERE author.author_id=".$_GET['id'];
                 </div>
                 <div class="col-md-7">
                     <ul class="footer-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
                         <li><a href="blog.html">Blog</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>

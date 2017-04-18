@@ -95,7 +95,7 @@ while ($row=$result->fetch_object()){
     <div class=\"\">
         <div class=\"col-sm-4 col-lg-4 col-md-4\">
             <div class=\"thumbnail\">
-                <img src=\"$img_path\" alt=\"\">
+                <img src=\"$img_path\" alt=\"\" width='100' height='100'>
                 
                 <div class=\"caption\">
                     <h4 class=\"pull-right\">Price: $bookPrice $</h4>

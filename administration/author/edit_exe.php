@@ -11,7 +11,7 @@ $sql="UPDATE author SET
 
 		
 		`lastname`='".$_POST['lastname']."'
-		
+		`description`='".$_POST['description']."'
 				WHERE author_id=".$_POST['id'];
 	
 //konekcija so baza

@@ -61,7 +61,7 @@ if ((isset($_POST['action']) ? $_POST['action'] : (isset($_GET['action']) ? $_GE
 
 
     // vnesuvanje vo baza
-    $sql="INSERT INTO author (firstname, lastname, img_path)
+    $sql="INSERT INTO author (firstname, lastname, img_author)
     VALUES ('".$_POST['firstname']."','".$_POST['lastname']."','".$handle->file_dst_name."')";
 	
 

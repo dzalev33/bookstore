@@ -34,5 +34,4 @@ if($result){      //vo while naedvame koj promenlivi ke gi zemime od bazata
 
     //login form
 
-    header("location:".$settings['website_url']."administration/index.php");exit();
-?>
+    header("location:".$settings['website_url']."administration/index.php");exit(); ?>
