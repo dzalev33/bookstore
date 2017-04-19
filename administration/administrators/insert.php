@@ -44,20 +44,7 @@ echo "
     <script src=\"https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js\"></script>
     <![endif]-->
 <title>".$settings['title']."</title>
-<script >
-function delete_Borrowed(id) {
 
-    var val=confirm(\"dali sakate da go izbrisite zapisot od bazata?\");
-        
-        if (val==true){
-           window.location.href=\"delete_exe.php?id= \"+id
-        
-        }else {
-            return false;
-        }
-  
-}
-</script>
 
 </head>
 

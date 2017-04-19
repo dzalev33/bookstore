@@ -1,9 +1,13 @@
 <?php
+
+
+
 echo "
 
-<div class=\"collapse navbar-collapse navbar-ex1-collapse\">
 
-    <ul class=\"nav navbar-nav side-nav\">
+
+
+    <ul class=\"sidebar-nav\">
         <li class=\"active\">
               <a href=\"".$settings['website_url']."administration/administrators/index.php\"><i class=\"fa fa-fw fa-dashboard\"></i> Administrators</a>
         </li>
@@ -40,9 +44,10 @@ echo "
         </li>
     </ul>
     <!--tuka se klava menito-->
-</div>
 
- </div>
+
+
+
 ";
 ?>
 
