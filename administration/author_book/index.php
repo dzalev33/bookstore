@@ -85,7 +85,7 @@ function delete_ad(id)
                 <ul class=\"dropdown-menu\">
                     
                     <li>
-                        <a href=\"".$settings['website_url']."administration/author_book/insert.php\"><i class=\"fa fa-plus-circle\" aria-hidden=\"true\"></i> New Author </a>
+                        <a href=\"".$settings['website_url']."administration/author_book/insert.php\"><i class=\"fa fa-plus-circle\" aria-hidden=\"true\"></i> New Author's Book </a>
                     </li>
                     
                   
@@ -183,7 +183,7 @@ while ($row=$result->fetch_object()){
 
 echo "
                                     </tbody>
-                                     <tr><td colspan=\"6\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
+                                     
                                 </table>
                               </form>
                            </div>

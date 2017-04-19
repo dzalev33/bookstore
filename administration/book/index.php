@@ -89,7 +89,7 @@ function delete_BOOK(id) {
                 <ul class=\"dropdown-menu\">
                     
                     <li>
-                        <a href=\"".$settings['website_url']."administration/book/insert.php\"><i class=\"fa fa-plus-circle\" aria-hidden=\"true\"></i> New Author </a>
+                        <a href=\"".$settings['website_url']."administration/book/insert.php\"><i class=\"fa fa-plus-circle\" aria-hidden=\"true\"></i> New Book </a>
                     </li>
                     
                   
@@ -112,7 +112,7 @@ function delete_BOOK(id) {
             <div class=\"row\">
                 <div class=\"col-lg-12\">
                     <h1 class=\"page-header\">
-                        Authors & Books <small>Admin Page</small>
+                         Books <small>Admin Page</small>
                     </h1>
 
                 </div>";
@@ -192,7 +192,8 @@ while ($row=$result->fetch_object()){
 
 echo "
                                     </tbody>
-                                     <tr><td colspan=\"6\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
+                                      <tr><td colspan=\"8\"></td><td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger \" style='float: right !important;'  /></td>
+          
                                 </table>
                               </form>
                            </div>

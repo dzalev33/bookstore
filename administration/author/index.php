@@ -187,7 +187,7 @@ while ($row=$result->fetch_object()){
 }//end of While
 echo "
                                     </tbody>
-                                     <tr><td colspan=\"6\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
+                                     <tr><td colspan=\"5\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
                                 </table>
                               </form>
                            </div>
