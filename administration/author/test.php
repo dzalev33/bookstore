@@ -13,28 +13,6 @@ echo "
 <!DOCTYPE html>
 <html lang=\"en\">
 <head>
-
-
-
-<script >
-function deletePayment(id) {
-
-		var val=confirm(\"dali sakate da ja ponistite uplatata?\");
-			if(val==true){
-				window.location.href=\"delete_exe.php?id=\"+id
-			}else {
-				return false;
-			}
-			
-
-  
-}
-
-
-
-
-</script>
-
 <title>".$settings['title']."</title>
     <meta charset=\"utf-8\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
@@ -62,13 +40,6 @@ echo "
         </ul>
     </div>";
 
-$message="";
-if(!isset($_GET['id']))$_GET['id']="";
-if(isset($_GET['message']) && $_GET['message']=='insert')$message=" Uspesno vnesovte nov zapis";
-if(isset($_GET['message']) && $_GET['message']=='delete')$message=" Uspesno izbrisavte zapis";
-if(isset($_GET['message']) && $_GET['message']=='update')$message=" Uspesno editiravte zapis";
-
-
 echo "
 
 
@@ -81,61 +52,80 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/payment/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\"> New Payment</a>
+
                    
                     
-                    <div class=\"table - responsive\">
-                            <form action=\"multi_delete . php\" method=\"post\">
-                                <table class=\"table table - bordered table - hover table - striped\">
-                                    <thead>
-                                         <th>CardHolder Surname</th>
-                                                <th>Card Number</th>
-                                                  
-                                              
-                                                              <th>Card Expiary Date</th>
-                                                               <th>card_type</th>
-                                                               <th>security_code</th>
-                                                               <th>Quantity</th>
-                                                               <th>Total Price</th>
-                                                               <th>Edit</th>
-                                                                <th>Delete</th>
-                                          </tr>
-                                    </thead>";
+
+                
+                
+<form class=\"form-horizontal\"   action=\"insert_exe.php\" method=\"post\">
+<fieldset>
 
 
 
-$sql="SELECT * FROM payment
- `payment` INNER JOIN
-bucket ON payment.`order_id` = bucket.`order_id`";
-$result=$connection->query($sql);
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"selectbasic\">Author</label>
+  <div class=\"col-md-4\">
+    <select name=\"author_id\" class=\"form-control\"> ";
+
+$sql_author="SELECT * FROM author";
+$result_author=$connection->query($sql_author);
+
+while ($row_author=$result_author->fetch_object()){
+
+    //get value from database table author
+    $authorName=$row_author->firstname;
+    $authorLastname=$row_author->lastname;
+    $author_id=$row_author->author_id;
+
+    echo "<option value=\"$author_id\">$authorName - $authorLastname</option>";
+
+}//end while author
+echo " 
+    </select>
+  </div>
+</div>
 
 
-while ($row=$result->fetch_object()){
+    
+    
+    <div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Book</label>
+  <div class=\"col-md-4\">
+    <select name=\"book_id\" class=\"form-control\">";
 
-    $cardSurname=$row->card_holder_Surname;
-    $cardNumber=$row->card_number;
-    $expDate=$row->card_expiary_date;
-    $cardType=$row->card_type;
-    $SecurityCode=$row->security_code;
-    $orderId=$row->order_id;
-    $paymentID=$row->payment_id;
-    $quantity=$row->Quantity;
-    $Total_Price=$row->Total_Price;
+$sql_book="SELECT * FROM book";
+$result_book=$connection->query($sql_book);
 
-    echo" 
-    <tr>
-         <td>$cardSurname</td> <td>$cardNumber</td> <td>$expDate</td> <td>$cardType</td> <td>$SecurityCode</td> <td>$quantity</td><td>$Total_Price</td>
-  <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/payment/edit.php?id=$paymentID\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
-   			<td style=\"text-align:center\"><a onclick=\"return deletePayment($paymentID)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
- </tr>";
+while ($row_book=$result_book->fetch_object()){
 
-}
-echo"
-                                    </tbody>
-  <tr><td colspan=\"6\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
 
-                                </table>
-                              </form>
+    //get value from database table book
+    $BookTitle=$row_book->Title;
+    $bookId=$row_book->book_id;
+
+    echo "<option value=\"$bookId\">$BookTitle</option>";
+
+}//end while book
+echo "
+</select>
+    </select>
+  </div>
+</div>
+
+<!-- Button -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"btn\"></label>
+  <div class=\"col-md-4\">
+    <button  name=\"btn\"  type=\"submit\"value=\"save\" class=\"btn btn-block btn-success\">Save</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
                     </div>
                     
                     
@@ -158,6 +148,7 @@ echo"
 </script>
 
 </body>
+
 </html>
 
 
