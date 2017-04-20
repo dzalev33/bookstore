@@ -58,61 +58,122 @@ echo "
 
                 
                 
-<form class=\"form-horizontal\"   action=\"insert_exe.php\" method=\"post\">
+<form class=\"form-horizontal\" name=\"myForm\" action=\"insert_exe.php\" method=\"post\" onsubmit=\"return validationPay()\">
 <fieldset>
-
-
 
 <!-- Text input-->
 <div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"selectbasic\">Author</label>
+  <label class=\"col-md-4 control-label\" for=\"\">card_holder_Surname</label>  
   <div class=\"col-md-4\">
-    <select name=\"author_id\" class=\"form-control\"> ";
+  <input id=\"\" name=\"card_holder_Surname\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
 
-$sql_author="SELECT * FROM author";
-$result_author=$connection->query($sql_author);
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">card_number</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"card_number\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
 
-while ($row_author=$result_author->fetch_object()){
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">card_expiary_date</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"card_expiary_date\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
 
-    //get value from database table author
-    $authorName=$row_author->firstname;
-    $authorLastname=$row_author->lastname;
-    $author_id=$row_author->author_id;
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">card_type</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"card_type\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
 
-    echo "<option value=\"$author_id\">$authorName - $authorLastname</option>";
-
-}//end while author
-echo " 
-    </select>
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">security_code</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"security_code\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
   </div>
 </div>
 
 
-    
-    
-    <div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">Book</label>
+
+<!-- Select Basic -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Quantity</label>
   <div class=\"col-md-4\">
-    <select name=\"book_id\" class=\"form-control\">";
+    <select id=\"\" name=\"order_id\" class=\"form-control\">";
+//databese connect for book table
+$sql_Quantity = "SELECT * FROM bucket";
+$result_Quantity = $connection->query($sql_Quantity);
 
-$sql_book="SELECT * FROM book";
-$result_book=$connection->query($sql_book);
+//while for displaying category with selection
+while ($row_Quantity = $result_Quantity->fetch_object()) {
 
-while ($row_book=$result_book->fetch_object()){
+    $orderID=$row_Quantity->order_id;
+    $quantity = $row_Quantity->Quantity;
 
 
-    //get value from database table book
-    $BookTitle=$row_book->Title;
-    $bookId=$row_book->book_id;
 
-    echo "<option value=\"$bookId\">$BookTitle</option>";
 
-}//end while book
+    echo " <option value=\"$orderID \" >$quantity </option>";
+
+
+} //End while for category
+
+
+
+
 echo "
-</select>
+	    			 
+
     </select>
   </div>
 </div>
+
+<!-- Select Basic -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Total Price</label>
+  <div class=\"col-md-4\">
+    <select id=\"\" name=\"order_id\" class=\"form-control\">";
+//databese connect for book table
+$sql_TotalPrice = "SELECT * FROM bucket";
+$result_TotalPrice = $connection->query($sql_TotalPrice);
+
+//while for displaying category with selection
+while ($row_TotalPrice = $result_TotalPrice->fetch_object()) {
+
+    $orderID=$row_TotalPrice->order_id;
+    $TotalPrice = $row_TotalPrice->Total_Price;
+
+
+
+
+    echo " <option value=\"$orderID \" >$TotalPrice </option>";
+
+
+} //End while for category
+
+
+
+
+echo "
+    </select>
+  </div>
+</div>
+
+
+
 
 <!-- Button -->
 <div class=\"form-group\">
@@ -148,6 +209,7 @@ echo "
 </script>
 
 </body>
+<script src=\"".$settings['website_url']."administration/js/validationPayment.js\"></script>
 
 </html>
 

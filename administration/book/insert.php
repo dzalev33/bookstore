@@ -8,122 +8,185 @@ if(!isset($_SESSION['user_name'])){
     header("Location:".$settings['website_url']."administration/index.php");
 }
 
+
 echo "
-
-<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-<html>
+<!DOCTYPE html>
+<html lang=\"en\">
 <head>
-
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: #f1f1f1;
-    
-    font-size: small;
-
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-li a.active {
-    background-color: #838783;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-</style>
-
-<link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-<meta name=\"viewport\" content=\"width=device-width\">
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">
-<title>Online Library</title>
+<title>".$settings['title']."</title>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
+    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
+    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
+                    <!--sidebar menu -->
+    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
 </head>
 <body>
 
-<div id=\"Header\">
+<div id=\"wrapper\">
 
-<ul class=\"topnav\" id=\"myTopnav\">
-<li>
- 
-</ul>
+    <!-- Sidebar -->
+    <div id=\"sidebar-wrapper\">
 
-
-
-
-
-</div>
-<div id=\"Left\" >
-<div>
-<img src=\"".$settings['website_url']."administration/img/kniga_logo.jpg\"align=\"top\" id=\"Logo\">
-</div>
-";
+        <ul class=\"sidebar-nav\">";
+//menu list connect
 require_once '../includes/menu_administration.php';
-  
 echo "
-  
+       <!--insert administrators-->
+           
+           
+        </ul>
+    </div>";
+
+echo "
+
+
+
+    <!-- Page content -->
+    <div id=\"page-content-wrapper\">
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <div class=\"col-lg-12\">
+                
+                    
+                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
+
+                   
+                    
+
+                
+                
+<form class=\"form-horizontal\" name=\"myForm\" enctype=\"multipart/form-data\" action=\"insert_exe.php\" method=\"post\" onsubmit=\"return validationBook()\">
+<fieldset>
+
+
+
+<!-- image --> 
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Image</label>
+  <div class=\"col-md-4\">
+    <input type=\"hidden\" name=\"action\" value=\"image\" /><input  name=\"my_field\" class=\"input-file\" type=\"file\">
+  </div>
 </div>
-<div id=\"Content\">
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Price</label>  
+  <div class=\"col-md-4\">
+  <input  name=\"Price\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Language</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"Language\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
 
 
 
-<form name=\"myForm\" enctype=\"multipart/form-data\" action=\"insert_exe.php\" method=\"post\" onsubmit=\"return validationBook()\">
-<table border=\"1\" style=\"border: black\" align=\"center\">
-	
-	 
-               <tr><td><input type=\"hidden\" name=\"action\" value=\"image\" /></td><td><input type=\"file\" name=\"my_field\" /></td></tr>
-	     
-            <tr><td>Book Title</td><td><input type=\"text\" name=\"Title\" value=\"\" /></td></tr>
-            <tr><td>Price</td><td><input type=\"text\" name=\"Price\" value=\"\" /></td></tr>
-            <tr><td>Language</td><td><input type=\"text\" name=\"Language\" value=\"\" /></td></tr>
-            <tr><td>Stock</td><td><input type=\"text\" name=\"Stock\" value=\"\"  /></td></tr>
-             <tr><td>Description</td><td><input type=\"text\" name=\"description\" value=\"\" /></td></tr>
-                     <tr><td>category</td><td>
-             <select name=\"category_id\" >";
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Stock</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"Stock\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Description</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"description\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
 
 
+<!-- Select Basic -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Category</label>
+  <div class=\"col-md-4\">
+    <select id=\"\" name=\"category_id\" class=\"form-control\">";
 $sql_category="SELECT * FROM category";
 $result_category=$connection->query($sql_category);
 
-             while ($row_category=$result_category->fetch_object()){
-                    $type=$row_category->type;
-                         $categoryID=$row_category->category_id;
+while ($row_category=$result_category->fetch_object()){
+    $type=$row_category->type;
+    $categoryID=$row_category->category_id;
 
-                                 echo "
+    echo "
 
 
             <option value=\"$categoryID\" style=\"align-self: center\" > $type</option>";
 
 
+
+
+}
+echo "
     
-
-    }
-        echo "
-
     </select>
-</td></tr>
-    <tr><td ></td><td><input type=\"submit\" name=\"btn\" value=\"save\" /></td></tr>
-</table>
-</form>
-
+  </div>
+</div>
+<!-- Button -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"btn\"></label>
+  <div class=\"col-md-4\">
+    <button  name=\"btn\"  type=\"submit\"value=\"save\" class=\"btn btn-block btn-success\">Save</button>
+  </div>
 </div>
 
 
-<div id=\"Footer\"> Stefan Dzalev  </div>
 
+</fieldset>
+</form>
+
+
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Menu toggle script -->
+<script>
+    $(\"#menu-toggle\").click( function (e){
+        e.preventDefault();
+        $(\"#wrapper\").toggleClass(\"menuDisplayed\");
+    });
+</script>
 
 </body>
 <script src=\"".$settings['website_url']."administration/js/validationBook.js\"></script>
+
 </html>
+
+
+
+
+
+
 ";
 ?>
+
+
+
+
+
+
