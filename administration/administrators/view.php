@@ -1,37 +1,25 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
 <!DOCTYPE html>
 <html lang=\"en\">
 <head>
+
 <script>
 
-function delete_author(authorID){
-    
-    var val=confirm(\"izbrisi go avtorot?\");
-        
+        function delete_ad(id){
+
+        var val=confirm(\"Dali sakate da go izbrisite adminot?\");
+
         if(val==true){
-            window.location.href=\"delete_exe.php?id=\"+authorID
-        } else {
-            return false;
-            
-            
-               }
-
-        }
-
-
-
-
+                window.location.href=\"delete.php?id=\"+id
+        }else{
+                return false;
+            }//end if
+        }//end function
 </script>
 
 <title>".$settings['title']."</title>
@@ -49,17 +37,16 @@ function delete_author(authorID){
 <div id=\"wrapper\">
 
     <!-- Sidebar -->
-    <div id=\"sidebar-wrapper\">
+
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
-echo "
-       <!--insert administrators-->
+       // include_once '../includes/menu_administration.php';
+            echo "
+
            
-           
-        </ul>
-    </div>";
+   
+    ";
 
 $message="";
 if(!isset($_GET['id']))$_GET['id']="";
@@ -80,7 +67,7 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/author/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Author</a>
+                         <a href=\"".$settings['website_url']."administrators/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Admin</a>
                    
                     
                     <div class=\"table - responsive\">
@@ -88,47 +75,47 @@ echo "
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                         <tr>
-                                            <th>Picture</th>
+                                            <th>Position</th>
+                                            <th>User Name</th>
                                             <th>First Name</th>
                                             <th>Last Name</th>
-                                            <th>Edit</th>
+                                            <th>edit</th>
                                             <th>Delete</th>
                                             <th>multi delete</th>
                                           </tr>
                                     </thead>";
-$sql="SELECT * FROM author";
+$sql="SELECT * FROM administrators";
+
 $result=$connection->query($sql);
+while($row=$result->fetch_object()) {
+    $user = $row->user_name;
+    $position = $row->position;
+    $pass = $row->password;
+    $firsName = $row->first_name;
+    $lastName = $row->last_name;
+    $admin_id = $row->admin_id;
+    $bgcolor = "yellow";
+    if ($admin_id == $_GET['id']) $bgcolor = "blue";
+    echo "
 
-while ($row=$result->fetch_object()){
-    $authorName=$row->firstname;
-    $authorLastname=$row->lastname;
-    $author_id=$row->author_id;
-    $Photo=$row->img_author;
-    $bgcolor="yellow";
-    if($type==$_GET['id']) $bgcolor="blue";
-    //"upload/"
+                                    <tbody>
+                                        <tr bgcolor=$bgcolor>
+                                        <td>$position</td><td>$user</td><td>$firsName</td><td>$lastName</td>
+                                        <td><a href=\"" . $settings['website_url'] . "administration/administrators/edit.php?id=$admin_id\" ><img src = \"" . $settings['website_url'] . "images/edit.png\" width = \"20\" alt = \"edit\" /></a ></td > ";
 
-    $img_path=$settings['website_url']."upload/".$Photo;
-
-    echo "<tr><td><img src=\"$img_path\" width=\"40\" alt=\"$Photo\"></td><td>$authorName</td> <td>$authorLastname</td>
-                         			<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/author/edit.php?id=$author_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
-    //delete
-
-    if($user!=$_SESSION['user_name']) 	echo "<td><a onclick=\"return delete_author($author_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
-    if($user==$_SESSION['user_name']) 	echo "<td></td>";
-
-    //multi delete
-    if($user!=$_SESSION['user_name']) echo "<td><input type=\"checkbox\" name=\"delete[]\" value=\"$author_id\" ></td>";
-    if($user==$_SESSION['user_name']) echo "<td></td>";
+    if ($user != $_SESSION['user_name']) echo "<td><a onclick=\"return delete_ad($admin_id)\"><img src=\"" . $settings['website_url'] . "images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
+    if ($user == $_SESSION['user_name']) echo "<td></td>";
 
 
-    echo "         </tr>";
+    if ($user != $_SESSION['user_name']) echo "<td><input type=\"checkbox\" name=\"delete[]\" value=\"$admin_id\"  ></td>";
+    if ($user == $_SESSION['user_name']) echo "<td></td>";
 
 
+    echo " </tr>";
 }//end of While
 echo "
                                     </tbody>
-                                     <tr><td colspan=\"5\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
+                                     <tr><td colspan=\"6\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
                                 </table>
                               </form>
                     </div>

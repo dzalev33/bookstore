@@ -10,108 +10,139 @@ if(!isset($_SESSION['user_name'])){
 
 
 echo "
-
-<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-<html>
+<!DOCTYPE html>
+<html lang=\"en\">
 <head>
-
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: #f1f1f1;
-    
-    font-size: small;
-
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-li a.active {
-    background-color: #838783;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-</style>
-
-<link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-<meta name=\"viewport\" content=\"width=device-width\">
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">
 <title>".$settings['title']."</title>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
+    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
+    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
+                    <!--sidebar menu -->
+    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
 </head>
 <body>
 
-<div id=\"Header\">
+<div id=\"wrapper\">
 
-<ul class=\"topnav\" id=\"myTopnav\">
-   <li><a href = \"AdminPage.html\">Admin</a></li>
-  <li><a href=\"Login.html\">Login</a></li>
- 
-</ul>
+    <!-- Sidebar -->
+    <div id=\"sidebar-wrapper\">
 
-
-
-
-
-</div>
-<div id=\"Left\" >
-<div>
-<img src=\"".$settings['website_url']."administration/img/kniga_logo.jpg\"align=\"top\" id=\"Logo\">
-</div>";
-
-
+        <ul class=\"sidebar-nav\">";
+//menu list connect
 require_once '../includes/menu_administration.php';
+echo "
+       <!--insert administrators-->
+           
+           
+        </ul>
+    </div>";
 
- echo " 
-</div>
-<div id=\"Content\">
-<form name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationAuthor()\">
-   			<table border=\"1\" width=\"100%\">";
-         
+echo "
 
- 				$sql="SELECT * FROM author WHERE author_id=".$_GET['id'];
-                $result=$connection->query($sql);
+
+
+    <!-- Page content -->
+    <div id=\"page-content-wrapper\">
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <div class=\"col-lg-12\">
                 
-                while ($row=$result->fetch_object()){
-                      $authorName=$row->firstname;
-                      $authorLastname=$row->lastname;
-                      $author_id=$row->author_id;
-                      	
-                       echo "
-                       <tr>
-                       <td>firstname</td><td>$authorName</td>
-                       </tr>
-                       <tr>   
-                      <td>lastname</td> <td><input type=\"hidden\" name=\"id\" value=\"$author_id\" /><input type=\"text\" name=\"lastname\" value=\"$authorLastname\" /></td>   
-                      </tr> ";
-                	
-                      
-                }
-   			    
-   			     
-        		echo "		
-   			      			<tr ><td><input type=\"submit\" name=\"btn\" value=\"EDIT\" /></td></tr>
-				</table>
-				</form>				
-				</div>
+                    
+                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
+
+                   
+                    
+
+                
+                 <form class=\"form-horizontal\"  name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationAuthor()\">
+<fieldset>";
+
+$sql="SELECT * FROM author WHERE author_id=".$_GET['id'];
+$result=$connection->query($sql);
+
+while ($row=$result->fetch_object()) {
+    $authorName = $row->firstname;
+    $authorLastname = $row->lastname;
+    $author_id = $row->author_id;
+    echo "
 
 
-<div id=\"Footer\"> Stefan Dzalev  </div>
 
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">First Name</label>  
+  <div class=\"col-md-4\">
+  <input  name=\"firstname\" type=\"text\"  value=\"$authorName\" class=\"form-control input-md\">
+  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Last Name</label>  
+  <div class=\"col-md-4\">
+  <input type=\"hidden\" name=\"id\" value=\"$author_id\" />
+  <input name=\"lastname\" type=\"text\" value=\"$authorLastname\"  class=\"form-control input-md\">
+  
+  </div>
+</div>";
+}
+echo "
+
+
+
+<!-- Button -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"btn\"></label>
+  <div class=\"col-md-4\">
+    <button  name=\"btn\"  type=\"submit\" value=\"EDIT\" class=\"btn btn-block btn-success\">Save</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Menu toggle script -->
+<script>
+    $(\"#menu-toggle\").click( function (e){
+        e.preventDefault();
+        $(\"#wrapper\").toggleClass(\"menuDisplayed\");
+    });
+</script>
 
 </body>
 <script src=\"".$settings['website_url']."administration/js/validationAuthor.js\"></script>
+
 </html>
+
+
+
+
+
+
 ";
 ?>
+
+
+
+
+
+

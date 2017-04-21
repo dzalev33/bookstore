@@ -1,10 +1,14 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
  //pocetok na sesija
 session_start();
+require_once 'includes/database_connect.php';
 
 //konekcija so baza
-require_once 'includes/database_connect.php';
+//require_once 'includes/database_connect.php';
 
 //Sql za zemanje na user i pass od bazata
 $sql="SELECT * FROM administrators WHERE user_name LIKE \"".$_POST['user_name']."\"
@@ -20,12 +24,12 @@ if($result){      //vo while naedvame koj promenlivi ke gi zemime od bazata
                 //ako adminID e razlicno od 0 i go najde vo bazata odnesi na administratorskata strana (logirano)
             if( $admin_id!=0) {
                 $_SESSION['user_name'] = $_POST['user_name'];
-                header("Location:".$settings['website_url']."administration/administrators/index.php");exit();
+                header("Location:".$settings['website_url']."administration?page=administrators");exit();
 
             }else{
 
 
-                header("location:".$settings['website_url']."administration/index.php");exit();
+                header("location:".$settings['website_url']."administration");exit();
 
             }
     }
@@ -34,4 +38,4 @@ if($result){      //vo while naedvame koj promenlivi ke gi zemime od bazata
 
     //login form
 
-    header("location:".$settings['website_url']."administration/index.php");exit(); ?>
+    header("location:".$settings['website_url']."administration");exit(); ?>

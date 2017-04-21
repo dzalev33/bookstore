@@ -57,121 +57,40 @@ echo "
                     
 
                 
-                
-<form class=\"form-horizontal\" name=\"myForm\" action=\"insert_exe.php\" method=\"post\" onsubmit=\"return validationPay()\">
-<fieldset>
+                 <form class=\"form-horizontal\"  name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationAuthor()\">
+<fieldset>";
+
+$sql="SELECT * FROM author WHERE author_id=".$_GET['id'];
+$result=$connection->query($sql);
+
+while ($row=$result->fetch_object()) {
+    $authorName = $row->firstname;
+    $authorLastname = $row->lastname;
+    $author_id = $row->author_id;
+    echo "
+
+
 
 <!-- Text input-->
 <div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">card_holder_Surname</label>  
+  <label class=\"col-md-4 control-label\" for=\"\">First Name</label>  
   <div class=\"col-md-4\">
-  <input id=\"\" name=\"card_holder_Surname\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
-    
+  <input  name=\"firstname\" type=\"text\"  value=\"$authorName\" class=\"form-control input-md\">
+  
   </div>
 </div>
 
 <!-- Text input-->
 <div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">card_number</label>  
+  <label class=\"col-md-4 control-label\" for=\"\">Last Name</label>  
   <div class=\"col-md-4\">
-  <input id=\"\" name=\"card_number\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
-    
+  <input type=\"hidden\" name=\"id\" value=\"$author_id\" />
+  <input name=\"lastname\" type=\"text\" value=\"$authorLastname\"  class=\"form-control input-md\">
+  
   </div>
-</div>
-
-<!-- Text input-->
-<div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">card_expiary_date</label>  
-  <div class=\"col-md-4\">
-  <input id=\"\" name=\"card_expiary_date\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
-    
-  </div>
-</div>
-
-<!-- Text input-->
-<div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">card_type</label>  
-  <div class=\"col-md-4\">
-  <input id=\"\" name=\"card_type\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
-    
-  </div>
-</div>
-
-<!-- Text input-->
-<div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">security_code</label>  
-  <div class=\"col-md-4\">
-  <input id=\"\" name=\"security_code\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
-    
-  </div>
-</div>
-
-
-
-<!-- Select Basic -->
-<div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">Quantity</label>
-  <div class=\"col-md-4\">
-    <select id=\"\" name=\"order_id\" class=\"form-control\">";
-//databese connect for book table
-$sql_Quantity = "SELECT * FROM bucket";
-$result_Quantity = $connection->query($sql_Quantity);
-
-//while for displaying category with selection
-while ($row_Quantity = $result_Quantity->fetch_object()) {
-
-    $orderID=$row_Quantity->order_id;
-    $quantity = $row_Quantity->Quantity;
-
-
-
-
-    echo " <option value=\"$orderID \" >$quantity </option>";
-
-
-} //End while for category
-
-
-
-
+</div>";
+}
 echo "
-	    			 
-
-    </select>
-  </div>
-</div>
-
-<!-- Select Basic -->
-<div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">Total Price</label>
-  <div class=\"col-md-4\">
-    <select id=\"\" name=\"order_id\" class=\"form-control\">";
-//databese connect for book table
-$sql_TotalPrice = "SELECT * FROM bucket";
-$result_TotalPrice = $connection->query($sql_TotalPrice);
-
-//while for displaying category with selection
-while ($row_TotalPrice = $result_TotalPrice->fetch_object()) {
-
-    $orderID=$row_TotalPrice->order_id;
-    $TotalPrice = $row_TotalPrice->Total_Price;
-
-
-
-
-    echo " <option value=\"$orderID \" >$TotalPrice </option>";
-
-
-} //End while for category
-
-
-
-
-echo "
-    </select>
-  </div>
-</div>
-
 
 
 
@@ -179,12 +98,13 @@ echo "
 <div class=\"form-group\">
   <label class=\"col-md-4 control-label\" for=\"btn\"></label>
   <div class=\"col-md-4\">
-    <button  name=\"btn\"  type=\"submit\"value=\"save\" class=\"btn btn-block btn-success\">Save</button>
+    <button  name=\"btn\"  type=\"submit\" value=\"EDIT\" class=\"btn btn-block btn-success\">Save</button>
   </div>
 </div>
 
 </fieldset>
 </form>
+
 
 
                     </div>
@@ -209,7 +129,7 @@ echo "
 </script>
 
 </body>
-<script src=\"".$settings['website_url']."administration/js/validationPayment.js\"></script>
+<script src=\"".$settings['website_url']."administration/js/validationAuthor.js\"></script>
 
 </html>
 

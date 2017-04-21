@@ -19,6 +19,6 @@ $connection->query($sql);//konekcija
 //$id=mysql_insert_id();
 //header("Location:index.php?message=insert&id=".$id);exit();
 	//da te vrati na strana index.php posle vnesvanje vo baza
-header("Location:index.php?message=insert&id=".$_POST['type']);exit();
+header("Location:view.php?message=insert&id=".$_POST['type']);exit();
 
 ?>

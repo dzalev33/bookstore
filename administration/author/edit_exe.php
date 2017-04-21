@@ -9,9 +9,9 @@ if(!isset($_SESSION['user_name'])){
 // update na bazata
 $sql="UPDATE author SET
 
-		
+		`firstname`='".$_POST['firstname']."'
 		`lastname`='".$_POST['lastname']."'
-		`description`='".$_POST['description']."'
+		
 				WHERE author_id=".$_POST['id'];
 	
 //konekcija so baza

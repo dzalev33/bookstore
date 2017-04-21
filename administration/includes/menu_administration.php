@@ -4,49 +4,50 @@
 
 echo "
 
-
-
+    <div id=\"sidebar-wrapper\">
+  
 
     <ul class=\"sidebar-nav\">
         <li class=\"active\">
-              <a href=\"".$settings['website_url']."administration/administrators/index.php\"><i class=\"fa fa-fw fa-dashboard\"></i> Administrators</a>
+              <a href=\"".$settings['website_url']."administration?page=administrators\"><i class=\"fa fa-fw fa-dashboard\"></i> Administrators</a>
         </li>
         <li>
-            <a href = \"".$settings['website_url']."administration/author/index.php\">author</a> 
+            <a href = \"".$settings['website_url']."administration?page=author\">author</a> 
         </li>
         <li>
-           <a href=\"".$settings['website_url']."administration/author_book/index.php\">author book</a>
+           <a href=\"".$settings['website_url']."administration?page=author_book\">author book</a>
         </li>
         <li>
-            <a href=\"".$settings['website_url']."administration/book/index.php\">book</a>
+            <a href=\"".$settings['website_url']."administration?page=book\">book</a>
         </li>
         <li>
-            <a href=\"".$settings['website_url']."administration/borrowed_by/index.php\">borrowed by</a>
+            <a href=\"".$settings['website_url']."administration?page=borrowed_by\">borrowed by</a>
         </li>
         <li>
-            <a href =\"".$settings['website_url']."administration/bucket/index.php\">bucket</a>
+            <a href =\"".$settings['website_url']."administration?page=bucket\">bucket</a>
         </li>
         
         <li>
-           <a href=\"".$settings['website_url']."administration/category/index.php\">category</a>
+           <a href=\"".$settings['website_url']."administration?page=category\">category</a>
         </li>
         <li>
-           <a href=\"".$settings['website_url']."administration/members/index.php\">members</a>
+           <a href=\"".$settings['website_url']."administration?page=members\">members</a>
         </li>
         <li>
-           <a href=\"".$settings['website_url']."administration/order_book/index.php\">order book</a>
+           <a href=\"".$settings['website_url']."administration?page=order_book\">order book</a>
         </li>
         <li>
-          <a href=\"".$settings['website_url']."administration/payment/index.php\" >payment</a>
+          <a href=\"".$settings['website_url']."administration?page=payment\" >payment</a>
         </li>
         <li>
           <a href=\"".$settings['website_url']."administration/logout.php\" ><i class=\"fa fa-fw fa-power-off\"></i>Logout</a>
         </li>
     </ul>
     <!--tuka se klava menito-->
+    
 
 
-
+</div>
 
 ";
 ?>

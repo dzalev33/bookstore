@@ -64,6 +64,6 @@ VALUES ('".$_POST['Title']."',".$_POST['Price'].",'".$_POST['Language']."',".$_P
       
 $connection->query($sql);//execute sql
 
-header("Location:index.php");exit();
+header("Location:view.php?message=insert&id=".$_POST['Title']);exit();
 
 ?>

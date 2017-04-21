@@ -1,12 +1,5 @@
 <?php
 
-session_start();
-
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-	header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
@@ -48,7 +41,7 @@ function delete_Category(id)
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
+//require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            

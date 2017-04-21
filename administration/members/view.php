@@ -1,12 +1,5 @@
 <?php
 
-session_start();
-
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-	header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
@@ -50,7 +43,7 @@ function delete_member(id)
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
+//require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -117,17 +110,17 @@ while ($row=$result->fetch_object()){
 	$memberStreet=$row->Street;
 	$member_id=$row->member_id;
 	$bgcolor="yellow";
-	if($type==$_GET['id']) $bgcolor="blue";
+	if($member_id==$_GET['id']) $bgcolor="blue";
 
 	echo"<tr>
         <td>$memberName</td> <td>$memberLastName</td> <td>$memberemail</td> <td>$memberTell_number</td> <td>$memberDOB</td>
          <td>$memberReg_Date</td> <td>$memberZipcode</td> <td>$memberCountry</td> <td>$memberCity</td> <td>$memberStreet</td>
   <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/members/edit.php?id=$member_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
 
-	if($user!=$_SESSION['user_name']) echo "    			<td style=\"text-align:center\"><a onclick=\"return delete_member($member_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
-	if($user==$_SESSION['user_name']) echo "  <td> </td> ";
-	if($user!=$_SESSION['user_name']) echo "<td><input type=\"checkbox\" name=\"delete[]\" value=\"$member_id\" ></td>";
-	if($user==$_SESSION['user_name']) echo "<td></td>";
+	if($memberDOB!=$_SESSION['user_name']) echo "    			<td style=\"text-align:center\"><a onclick=\"return delete_member($member_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
+	if($memberDOB==$_SESSION['user_name']) echo "  <td> </td> ";
+	if($memberDOB!=$_SESSION['user_name']) echo "<td><input type=\"checkbox\" name=\"delete[]\" value=\"$member_id\" ></td>";
+	if($memberDOB==$_SESSION['user_name']) echo "<td></td>";
 	echo " </tr>";
 
 }

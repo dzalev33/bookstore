@@ -1,31 +1,32 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
 <!DOCTYPE html>
 <html lang=\"en\">
 <head>
-<script >
-function delete_Borrowed(id) {
 
-    var val=confirm(\"dali sakate da go izbrisite zapisot od bazata?\");
-        
-        if (val==true){
-           window.location.href=\"delete_exe.php?id= \"+id
-        
-        }else {
-            return false;
-        }
+
+
+<script >
+function deletePayment(id) {
+
+		var val=confirm(\"dali sakate da ja ponistite uplatata?\");
+			if(val==true){
+				window.location.href=\"delete_exe.php?id=\"+id
+			}else {
+				return false;
+			}
+			
+
   
 }
+
+
+
+
 </script>
 
 <title>".$settings['title']."</title>
@@ -47,7 +48,7 @@ function delete_Borrowed(id) {
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
+//require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -74,48 +75,58 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/borrowed_by/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Borrow</a>
+                         <a href=\"".$settings['website_url']."administration/payment/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\"> New Payment</a>
                    
                     
                     <div class=\"table - responsive\">
                             <form action=\"multi_delete . php\" method=\"post\">
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
-                                        <tr>
-                                            <th>Member</th>
-                                            <th>Book</th>
-                                    
-                                            <th>Due Date</th>
-                                            <th>Return Date</th>
-                                      
-                                            <th>Edit</th>
-                                            <th>Delete</th>
+                                         <th>CardHolder Surname</th>
+                                                <th>Card Number</th>
+                                                  
+                                              
+                                                              <th>Card Expiary Date</th>
+                                                               <th>card_type</th>
+                                                               <th>security_code</th>
+                                                               <th>Quantity</th>
+                                                               <th>Total Price</th>
+                                                               <th>Edit</th>
+                                                                <th>Delete</th>
                                           </tr>
                                     </thead>";
-$sql="SELECT * FROM borrowed_by
-              				 INNER JOIN book ON book.`book_id` = borrowed_by.`book_id` 
-												INNER JOIN members ON members.`member_id` = borrowed_by.`member_id`";
+
+
+
+$sql="SELECT * FROM payment
+ `payment` INNER JOIN
+bucket ON payment.`order_id` = bucket.`order_id`";
 $result=$connection->query($sql);
 
-while ($row=$result->fetch_object()){
-    $dueDate=$row->Due_Date;
-    $returnDate=$row->Return_Date;
-    $memberName=$row->member_firstname;
-    $memberLastName=$row->member_lastname;
-    $BookTitle=$row->Title;
-    $borrowed_by_id=$row->borrowed_by_id;
 
-    echo "<tr><td>$memberName $memberLastName </td><td>$BookTitle</td><td>$dueDate</td> <td>$returnDate</td>
-               	 <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/borrowed_by/edit.php?id=$borrowed_by_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
-   			<td style=\"text-align:center\"><a onclick=\"return delete_Borrowed($borrowed_by_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
+while ($row=$result->fetch_object()){
+
+	$cardSurname=$row->card_holder_Surname;
+	$cardNumber=$row->card_number;
+	$expDate=$row->card_expiary_date;
+	$cardType=$row->card_type;
+	$SecurityCode=$row->security_code;
+	$orderId=$row->order_id;
+	$paymentID=$row->payment_id;
+	$quantity=$row->Quantity;
+	$Total_Price=$row->Total_Price;
+
+	echo" 
+    <tr>
+         <td>$cardSurname</td> <td>$cardNumber</td> <td>$expDate</td> <td>$cardType</td> <td>$SecurityCode</td> <td>$quantity</td><td>$Total_Price</td>
+  <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/payment/edit.php?id=$paymentID\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+   			<td style=\"text-align:center\"><a onclick=\"return deletePayment($paymentID)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
  </tr>";
 
-
 }
-
-
-echo "
+echo"
                                     </tbody>
+
                                 </table>
                               </form>
                     </div>

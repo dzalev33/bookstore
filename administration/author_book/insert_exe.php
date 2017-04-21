@@ -12,5 +12,5 @@ $sql="INSERT INTO author_book (author_id, book_id) VALUES (".$_POST['author_id']
 
 $connection->query($sql);//execute sql
 
-header("Location:index.php");exit();
+header("Location:view.php?message=insert&id=".$_POST['author_id']);exit();
 ?>

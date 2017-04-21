@@ -1,31 +1,28 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
 <!DOCTYPE html>
 <html lang=\"en\">
 <head>
+<script >
+function delete_BOOK(id) {
 
-<script>
+    var val=confirm(\"dali sakate da ja izbrisite knigata od bazata?\");
+        
+        if (val==true){
+           window.location.href=\"delete_exe.php?id= \"+id
+        
+        }else {
+            return false;
+        }
+  
+}
 
-        function delete_ad(id){
 
-        var val=confirm(\"Dali sakate da go izbrisite adminot?\");
 
-        if(val==true){
-                window.location.href=\"delete.php?id=\"+id
-        }else{
-                return false;
-            }//end if
-        }//end function
 </script>
 
 <title>".$settings['title']."</title>
@@ -47,8 +44,8 @@ echo "
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-        require_once '../includes/menu_administration.php';
-            echo "
+//require_once '../includes/menu_administration.php';
+echo "
        <!--insert administrators-->
            
            
@@ -74,7 +71,7 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/administrators/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Admin</a>
+                         <a href=\"".$settings['website_url']."administration/book/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Book</a>
                    
                     
                     <div class=\"table - responsive\">
@@ -82,47 +79,55 @@ echo "
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                         <tr>
-                                            <th>Position</th>
-                                            <th>User Name</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>edit</th>
+                                           <th>Picture</th>
+                                            <th>Title</th>
+                                            <th>Price</th>
+                                            <th>Language</th>
+                                            <th>Stock</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Edit</th>
                                             <th>Delete</th>
-                                            <th>multi delete</th>
+                                            <th>multi Delete</th>
                                           </tr>
                                     </thead>";
-$sql="SELECT * FROM administrators";
-
+$sql="SELECT * FROM book
+				INNER JOIN category ON category.`category_id` = book.`category_id`";
 $result=$connection->query($sql);
-while($row=$result->fetch_object()) {
-    $user = $row->user_name;
-    $position = $row->position;
-    $pass = $row->password;
-    $firsName = $row->first_name;
-    $lastName = $row->last_name;
-    $admin_id = $row->admin_id;
-    $bgcolor = "yellow";
-    if ($admin_id == $_GET['id']) $bgcolor = "blue";
-    echo "
 
-                                    <tbody>
-                                        <tr bgcolor=$bgcolor>
-                                        <td>$position</td><td>$user</td><td>$firsName</td><td>$lastName</td>
-                                        <td><a href=\"" . $settings['website_url'] . "administration/administrators/edit.php?id=$admin_id\" ><img src = \"" . $settings['website_url'] . "images/edit.png\" width = \"20\" alt = \"edit\" /></a ></td > ";
+while ($row=$result->fetch_object()){
+    $BookTitle=$row->Title;
+    $bookPrice=$row->Price;
+    $BookLanguage=$row->Language;
+    $bookStock=$row->Stock;
+    $BookVategoryId=$row->category_id;
+    $booktype=$row->type;
+    $bookId=$row->book_id;
+    $Photo=$row->img_path;
+    $description=$row->	description;
+    $bgcolor="yellow";
+    if($bookId==$_GET['id'])
+        $bgcolor="blue";
 
-    if ($user != $_SESSION['user_name']) echo "<td><a onclick=\"return delete_ad($admin_id)\"><img src=\"" . $settings['website_url'] . "images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
-    if ($user == $_SESSION['user_name']) echo "<td></td>";
+    //"upload/"
+    $img_path=$settings['website_url']."upload/".$Photo;
+
+    echo " <tr><td><img src=\"$img_path\" width=\"40\" alt=\"$Photo\"></td><td>$BookTitle</td> <td>$bookPrice</td> <td>$BookLanguage</td><td>$bookStock</td><td>$booktype</td><td>$description</td>
+   <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/book/edit.php?id=$bookId\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
 
 
-    if ($user != $_SESSION['user_name']) echo "<td><input type=\"checkbox\" name=\"delete[]\" value=\"$admin_id\"  ></td>";
-    if ($user == $_SESSION['user_name']) echo "<td></td>";
-
+    if($BookTitle!=$_SESSION['user_name']) echo "	<td style=\"text-align:center\"><a onclick=\" return delete_BOOK($bookId)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
+    if($BookTitle==$_SESSION['user_name']) echo "  <td> </td> ";
+    if($BookTitle!=$_SESSION['user_name']) echo "<td><input type=\"checkbox\" name=\"delete[]\" value=\"$bookId\" ></td>";
+    if($BookTitle==$_SESSION['user_name']) echo "<td></td>";
 
     echo " </tr>";
-}//end of While
+}
+
+
 echo "
                                     </tbody>
-                                     <tr><td colspan=\"6\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
+                                     <tr><td colspan=\"9\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
                                 </table>
                               </form>
                     </div>

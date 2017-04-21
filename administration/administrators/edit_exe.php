@@ -17,5 +17,5 @@ $sql="UPDATE administrators SET
 
 $connection->query($sql);//execute sql
 
-header("Location:index.php?message=update");exit();
+header("Location:view.php?message=update");exit();
 ?>

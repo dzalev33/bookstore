@@ -1,30 +1,23 @@
 <?php
 
-session_start();
-
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-	header("Location:".$settings['website_url']."administration/index.php");
-}
-
 
 echo "
 <!DOCTYPE html>
 <html lang=\"en\">
 <head>
-<script>
-function delete_ad(id)
-{
+<script >
+function delete_Borrowed(id) {
 
-    var val=confirm(\"Dali sakate da go izbrisite adminot? \");
-
-        if(val==true){
-                window.location.href=\"delete_exe.php?id=\"+id
-        }else{
-                return false;
-        }//end if
-}//end function
+    var val=confirm(\"dali sakate da go izbrisite zapisot od bazata?\");
+        
+        if (val==true){
+           window.location.href=\"delete_exe.php?id= \"+id
+        
+        }else {
+            return false;
+        }
+  
+}
 </script>
 
 <title>".$settings['title']."</title>
@@ -46,7 +39,7 @@ function delete_ad(id)
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
+//require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -73,7 +66,7 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/author_book/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">Merge Author and Book</a>
+                         <a href=\"".$settings['website_url']."administration/borrowed_by/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Borrow</a>
                    
                     
                     <div class=\"table - responsive\">
@@ -81,45 +74,37 @@ echo "
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                         <tr>
-                                                <th>Author</th>
+                                            <th>Member</th>
                                             <th>Book</th>
-                                            <th>Price</th>
+                                    
+                                            <th>Due Date</th>
+                                            <th>Return Date</th>
+                                      
                                             <th>Edit</th>
                                             <th>Delete</th>
                                           </tr>
                                     </thead>";
-$sql="SELECT * 
-FROM  author_book
-INNER JOIN author ON author.`author_id` = author_book.`author_id` 
-INNER JOIN book ON book.`book_id` = author_book.`book_id`";
+$sql="SELECT * FROM borrowed_by
+              				 INNER JOIN book ON book.`book_id` = borrowed_by.`book_id` 
+												INNER JOIN members ON members.`member_id` = borrowed_by.`member_id`";
 $result=$connection->query($sql);
 
 while ($row=$result->fetch_object()){
+    $dueDate=$row->Due_Date;
+    $returnDate=$row->Return_Date;
+    $memberName=$row->member_firstname;
+    $memberLastName=$row->member_lastname;
+    $BookTitle=$row->Title;
+    $borrowed_by_id=$row->borrowed_by_id;
 
-	//author_book
-	$authorId=$row->author_id;
-	$bookId=$row->book_id;
-	$authorBook_id=$row->author_book_id;
-	//author
-	$firstName=$row->firstname;
-	$lastName=$row->lastname;
-
-	//book
-	$title=$row->Title;
-	$price=$row->Price;
-
-	echo "
-				<tr>
-					<td>$firstName - $lastName</td>
-					<td>$title</td>
-					<td>$price</td>
-				<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/author_book/edit.php?id=$authorBook_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
-   			<td style=\"text-align:center\"><a onclick=\" return delete_ad($authorBook_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
- 
-				</tr>";
+    echo "<tr><td>$memberName $memberLastName </td><td>$BookTitle</td><td>$dueDate</td> <td>$returnDate</td>
+               	 <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/borrowed_by/edit.php?id=$borrowed_by_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+   			<td style=\"text-align:center\"><a onclick=\"return delete_Borrowed($borrowed_by_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
+ </tr>";
 
 
 }
+
 
 echo "
                                     </tbody>

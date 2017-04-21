@@ -1,6 +1,5 @@
 <?php
 
-
 session_start();
 
 require_once '../includes/database_connect.php';
@@ -11,125 +10,166 @@ if(!isset($_SESSION['user_name'])){
 
 
 echo "
-
-<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-<html>
+<!DOCTYPE html>
+<html lang=\"en\">
 <head>
-
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: #f1f1f1;
-    
-    font-size: small;
-
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-li a.active {
-    background-color: #838783;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-</style>
-
-<link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-<meta name=\"viewport\" content=\"width=device-width\">
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">
 <title>".$settings['title']."</title>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
+    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
+    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
+                    <!--sidebar menu -->
+    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
 </head>
 <body>
 
-<div id=\"Header\">
+<div id=\"wrapper\">
 
-<ul class=\"topnav\" id=\"myTopnav\">
-   <li><a href = \"AdminPage.html\">Admin</a></li>
-  <li><a href=\"Login.html\">Login</a></li>
- 
-</ul>
+    <!-- Sidebar -->
+    <div id=\"sidebar-wrapper\">
 
-
-
-
-
-</div>
-<div id=\"Left\" >
-<div>
-<img src=\"".$settings['website_url']."administration/img/kniga_logo.jpg\"align=\"top\" id=\"Logo\">
-</div>";
-
-
+        <ul class=\"sidebar-nav\">";
+//menu list connect
 require_once '../includes/menu_administration.php';
-
- echo " 
-  
-
-  
-</div>
-<div id=\"Content\">
-
-<form name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationAdmin()\">
-<table border=\"1\" style=\"border: black\" align=\"center\" width=\"100%\" >";
-    
-    $sql="SELECT * FROM administrators WHERE admin_id=".$_GET['id'];
-    
-   $result=$connection->query($sql);
-    while($row=$result->fetch_object()){
-    	$user=$row->user_name;
-    	$position=$row->position;
-    	$pass=$row->password;
-    	$firsName=$row->first_name;
-    	$lastName=$row->last_name;
-    	$admin_id=$row->admin_id;
-   echo "
-   			<tr>	
-   			<th>Pozicija</th><td>$position</td>
-   			</tr>
-   			<tr>
-   			<th>Username</th><td>$user</td>
-   			</tr>
-   		
-   			</tr>
-   			<th>First name</th><td>$firsName</td>
-   			</tr>
-   			<tr>
-   			<th>Last name</th>
-   			<td>
-   			<input type=\"hidden\" name=\"id\" value=\"$admin_id\" >
-   			<input type=\"text\" name=\"last_name\" value=\"$lastName\" >
-   			</td>
-   		</tr>";
-
-    }
-    
-echo " 
+echo "
+       <!--insert administrators-->
            
+           
+        </ul>
+    </div>";
 
-<tr ><td><input type=\"submit\" name=\"btn\" value=\"EDIT\" /></td></tr>
-</table>
-</form>
+echo "
+
+
+
+    <!-- Page content -->
+    <div id=\"page-content-wrapper\">
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <div class=\"col-lg-12\">
+                
+                    
+                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
+                   
+                    
+
+                
+                 <form class=\"form-horizontal\"  name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationAdmin()\">
+<fieldset>";
+$sql="SELECT * FROM administrators WHERE admin_id=".$_GET['id'];
+
+$result=$connection->query($sql);
+while($row=$result->fetch_object()) {
+    $user = $row->user_name;
+    $position = $row->position;
+    $pass = $row->password;
+    $firsName = $row->first_name;
+    $lastName = $row->last_name;
+    $admin_id = $row->admin_id;
+    echo "
+
+
+
+<!-- Position-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"position\">Position</label>  
+  <div class=\"col-md-4\">
+  <input  name=\"position\" type=\"text\"  value=\"$position\" class=\"form-control input-md\">
+    
+  </div>
+    </div>
+  
+  <!--Username-->
+  <div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"position\">Username</label>  
+  <div class=\"col-md-4\">
+  <input  name=\"user_name\" type=\"text\"  value=\"$user\" class=\"form-control input-md\">
+    
+
+</div>
+  </div>
+<!-- Password input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"password\">Password</label>
+  <div class=\"col-md-4\">
+    <input  name=\"password\" type=\"password\"  value=\"\"  class=\"form-control input-md\" required=\"\">
+    
+  </div>
 </div>
 
 
-<div id=\"Footer\"> Stefan Dzalev  </div>
 
+<!-- First Name  input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"first_name\">First Name</label>  
+  <div class=\"col-md-4\">
+  <input  name=\"first_name\" type=\"text\"  value=\"$firsName\" class=\"form-control input-md\" required=\"\">
+    
+  </div>
+</div>
+
+<!-- Last Name  input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"last_name\">Last Name</label>  
+  <div class=\"col-md-4\">
+  <input type=\"hidden\" name=\"id\" value=\"$admin_id\" >
+  <input  name=\"last_name\" type=\"text\"  value=\"$lastName\" class=\"form-control input-md\">
+    
+  </div>
+</div>";
+}
+echo "
+
+<!-- Button -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"btn\"></label>
+  <div class=\"col-md-4\">
+        <button  name=\"btn\"  type=\"submit\" value=\"EDIT\" class=\"btn btn-block btn-success\">Save</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Menu toggle script -->
+<script>
+    $(\"#menu-toggle\").click( function (e){
+        e.preventDefault();
+        $(\"#wrapper\").toggleClass(\"menuDisplayed\");
+    });
+</script>
 
 </body>
-
 <script src=\"".$settings['website_url']."administration/js/validationAdministrators.js\"></script>
+
 </html>
+
+
+
+
+
+
 ";
 ?>
+
+
+
+
+
+

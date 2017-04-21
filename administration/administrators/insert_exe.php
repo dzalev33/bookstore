@@ -12,5 +12,5 @@ VALUES ('".$_POST['position']."','".$_POST['user_name']."','".sha1($_POST['passw
 
 $connection->query($sql);//execute sql
 
-header("Location:index.php?message=insert");exit();
+header("Location:view.php?message=insert");exit();
 ?>

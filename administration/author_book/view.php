@@ -1,38 +1,22 @@
 <?php
 
-session_start();
-
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-	header("Location:".$settings['website_url']."administration/index.php");
-}
-
 
 echo "
 <!DOCTYPE html>
 <html lang=\"en\">
 <head>
+<script>
+function delete_ad(id)
+{
 
+    var val=confirm(\"Dali sakate da go izbrisite adminot? \");
 
-
-<script >
-function deletePayment(id) {
-
-		var val=confirm(\"dali sakate da ja ponistite uplatata?\");
-			if(val==true){
-				window.location.href=\"delete_exe.php?id=\"+id
-			}else {
-				return false;
-			}
-			
-
-  
-}
-
-
-
-
+        if(val==true){
+                window.location.href=\"delete_exe.php?id=\"+id
+        }else{
+                return false;
+        }//end if
+}//end function
 </script>
 
 <title>".$settings['title']."</title>
@@ -54,7 +38,7 @@ function deletePayment(id) {
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
+//require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -81,58 +65,56 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/payment/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\"> New Payment</a>
+                         <a href=\"".$settings['website_url']."administration/author_book/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">Merge Author and Book</a>
                    
                     
                     <div class=\"table - responsive\">
                             <form action=\"multi_delete . php\" method=\"post\">
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
-                                         <th>CardHolder Surname</th>
-                                                <th>Card Number</th>
-                                                  
-                                              
-                                                              <th>Card Expiary Date</th>
-                                                               <th>card_type</th>
-                                                               <th>security_code</th>
-                                                               <th>Quantity</th>
-                                                               <th>Total Price</th>
-                                                               <th>Edit</th>
-                                                                <th>Delete</th>
+                                        <tr>
+                                                <th>Author</th>
+                                            <th>Book</th>
+                                            <th>Price</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
                                           </tr>
                                     </thead>";
-
-
-
-$sql="SELECT * FROM payment
- `payment` INNER JOIN
-bucket ON payment.`order_id` = bucket.`order_id`";
+$sql="SELECT * 
+FROM  author_book
+INNER JOIN author ON author.`author_id` = author_book.`author_id` 
+INNER JOIN book ON book.`book_id` = author_book.`book_id`";
 $result=$connection->query($sql);
-
 
 while ($row=$result->fetch_object()){
 
-	$cardSurname=$row->card_holder_Surname;
-	$cardNumber=$row->card_number;
-	$expDate=$row->card_expiary_date;
-	$cardType=$row->card_type;
-	$SecurityCode=$row->security_code;
-	$orderId=$row->order_id;
-	$paymentID=$row->payment_id;
-	$quantity=$row->Quantity;
-	$Total_Price=$row->Total_Price;
+	//author_book
+	$authorId=$row->author_id;
+	$bookId=$row->book_id;
+	$authorBook_id=$row->author_book_id;
+	//author
+	$firstName=$row->firstname;
+	$lastName=$row->lastname;
 
-	echo" 
-    <tr>
-         <td>$cardSurname</td> <td>$cardNumber</td> <td>$expDate</td> <td>$cardType</td> <td>$SecurityCode</td> <td>$quantity</td><td>$Total_Price</td>
-  <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/payment/edit.php?id=$paymentID\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
-   			<td style=\"text-align:center\"><a onclick=\"return deletePayment($paymentID)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
- </tr>";
+	//book
+	$title=$row->Title;
+	$price=$row->Price;
+
+	echo "
+				<tr>
+					<td>$firstName - $lastName</td>
+					<td>$title</td>
+					<td>$price</td>
+				<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/author_book/edit.php?id=$authorBook_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+   			<td style=\"text-align:center\"><a onclick=\" return delete_ad($authorBook_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
+ 
+				</tr>";
+
 
 }
-echo"
-                                    </tbody>
 
+echo "
+                                    </tbody>
                                 </table>
                               </form>
                     </div>

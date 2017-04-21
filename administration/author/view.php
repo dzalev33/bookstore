@@ -1,31 +1,27 @@
 <?php
 
-session_start();
-
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
 <!DOCTYPE html>
 <html lang=\"en\">
 <head>
-<script >
-function delete_BOOK(id) {
+<script>
 
-    var val=confirm(\"dali sakate da ja izbrisite knigata od bazata?\");
+function delete_author(authorID){
+    
+    var val=confirm(\"izbrisi go avtorot?\");
         
-        if (val==true){
-           window.location.href=\"delete_exe.php?id= \"+id
-        
-        }else {
+        if(val==true){
+            window.location.href=\"delete_exe.php?id=\"+authorID
+        } else {
             return false;
+            
+            
+               }
+
         }
-  
-}
+
 
 
 
@@ -50,7 +46,7 @@ function delete_BOOK(id) {
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
+//require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -77,7 +73,7 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/book/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Book</a>
+                         <a href=\"".$settings['website_url']."administration/author/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Author</a>
                    
                     
                     <div class=\"table - responsive\">
@@ -85,54 +81,49 @@ echo "
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                         <tr>
-                                           <th>Picture</th>
-                                            <th>Title</th>
-                                            <th>Price</th>
-                                            <th>Language</th>
-                                            <th>Stock</th>
-                                            <th>Category</th>
-                                            <th>Description</th>
+                                            <th>Picture</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
-                                            <th>multi Delete</th>
+                                            <th>multi delete</th>
                                           </tr>
                                     </thead>";
-$sql="SELECT * FROM book
-				INNER JOIN category ON category.`category_id` = book.`category_id`";
+$sql="SELECT * FROM author";
 $result=$connection->query($sql);
 
 while ($row=$result->fetch_object()){
-    $BookTitle=$row->Title;
-    $bookPrice=$row->Price;
-    $BookLanguage=$row->Language;
-    $bookStock=$row->Stock;
-    $BookVategoryId=$row->category_id;
-    $booktype=$row->type;
-    $bookId=$row->book_id;
-    $Photo=$row->img_path;
-    $description=$row->	description;
-    $bgcolor="yellow";
-    if($type==$_GET['id']) $bgcolor="blue";
+  
 
+    $authorName=$row->firstname;
+    $authorLastname=$row->lastname;
+    $author_id=$row->author_id;
+    $Photo=$row->img_author;
+    $bgcolor="yellow";
+    if($author_id==$_GET['id']) $bgcolor="blue";
     //"upload/"
+
     $img_path=$settings['website_url']."upload/".$Photo;
 
-    echo " <tr><td><img src=\"$img_path\" width=\"40\" alt=\"$Photo\"></td><td>$BookTitle</td> <td>$bookPrice</td> <td>$BookLanguage</td><td>$bookStock</td><td>$booktype</td><td>$description</td>
-   <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/book/edit.php?id=$bookId\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
+    echo "<tr><td><img src=\"$img_path\" width=\"40\" alt=\"$Photo\"></td><td>$authorName</td> <td>$authorLastname</td>
+                         			<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/author/edit.php?id=$author_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
+    //delete
+
+    if($authorName!=$_SESSION['user_name']) 	echo "<td><a onclick=\"return delete_author($author_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
+    if($authorName==$_SESSION['user_name']) 	echo "<td></td>";
+
+    //multi delete
+    if($authorName!=$_SESSION['user_name']) echo "<td><input type=\"checkbox\" name=\"delete[]\" value=\"$author_id\" ></td>";
+    if($authorName==$_SESSION['user_name']) echo "<td></td>";
 
 
-    if($user!=$_SESSION['user_name']) echo "	<td style=\"text-align:center\"><a onclick=\" return delete_BOOK($bookId)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
-    if($user==$_SESSION['user_name']) echo "  <td> </td> ";
-    if($user!=$_SESSION['user_name']) echo "<td><input type=\"checkbox\" name=\"delete[]\" value=\"$bookId\" ></td>";
-    if($user==$_SESSION['user_name']) echo "<td></td>";
-
-    echo " </tr>";
-}
+    echo "         </tr>";
 
 
+}//end of While
 echo "
                                     </tbody>
-                                     <tr><td colspan=\"9\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
+                                     <tr><td colspan=\"5\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
                                 </table>
                               </form>
                     </div>
@@ -165,6 +156,8 @@ echo "
 
 
 ";
+
+return "test";
 ?>
 
 

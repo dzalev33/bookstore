@@ -72,6 +72,6 @@ $connection->query($sql);
 
 
 //vrakanje na index strana za da ne se gledaat podatocite sto gi vnesuvame
-header("Location:index.php");exit(); 
+header("Location:view.php?message=insert&id=".$_POST['firstname']);exit();
 
 ?>
