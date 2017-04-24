@@ -15,7 +15,7 @@ function deletePayment(id) {
 
 		var val=confirm(\"dali sakate da ja ponistite uplatata?\");
 			if(val==true){
-				window.location.href=\"delete_exe.php?id=\"+id
+				window.location.href=\"?page=payment&action=delete_exe&id=\"+id
 			}else {
 				return false;
 			}
@@ -75,11 +75,11 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/payment/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\"> New Payment</a>
+                         <a href=\"".$settings['website_url']."administration?page=payment&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\"> New Payment</a>
                    
                     
                     <div class=\"table - responsive\">
-                            <form action=\"multi_delete . php\" method=\"post\">
+                            <form action=\"\" method=\"post\">
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                          <th>CardHolder Surname</th>
@@ -119,7 +119,7 @@ while ($row=$result->fetch_object()){
 	echo" 
     <tr>
          <td>$cardSurname</td> <td>$cardNumber</td> <td>$expDate</td> <td>$cardType</td> <td>$SecurityCode</td> <td>$quantity</td><td>$Total_Price</td>
-  <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/payment/edit.php?id=$paymentID\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+  <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/?page=payment&action=edit&id=$paymentID\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
    			<td style=\"text-align:center\"><a onclick=\"return deletePayment($paymentID)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
  </tr>";
 

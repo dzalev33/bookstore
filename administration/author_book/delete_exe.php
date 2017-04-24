@@ -1,13 +1,7 @@
 <?php
 
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 $sql="DELETE FROM author_book WHERE author_book_id=".$_GET['id'];
@@ -15,5 +9,5 @@ $sql="DELETE FROM author_book WHERE author_book_id=".$_GET['id'];
 
 $connection->query($sql);//execute sql
 
-header("Location:index.php");exit();
+header("Location:?page=author_book&message=delete");exit();
 ?>

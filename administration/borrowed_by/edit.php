@@ -1,222 +1,220 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
 
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 echo "
-
-<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-<html>
+<!DOCTYPE html>
+<html lang=\"en\">
 <head>
-
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: #f1f1f1;
-    
-    font-size: small;
-
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-li a.active {
-    background-color: #838783;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-</style>
-
-<link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-<meta name=\"viewport\" content=\"width=device-width\">
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">
-<title>Online Library</title>
+<title>".$settings['title']."</title>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
+    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
+    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
+                    <!--sidebar menu -->
+    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
 </head>
 <body>
 
-<div id=\"Header\">
+<div id=\"wrapper\">
 
-<ul class=\"topnav\" id=\"myTopnav\">
-   
-  <li><a href=\"Login.html\">Login</a></li>
- 
-</ul>
+    <!-- Sidebar -->
+    <div id=\"sidebar-wrapper\">
 
+        <ul class=\"sidebar-nav\">";
+//menu list connect
+echo "
+       <!--insert administrators-->
+           
+           
+        </ul>
+    </div>";
 
-
-
-
-</div>
-<div id=\"Left\" >
-<div>
-<img src=\"".$settings['website_url']."administration/img/kniga_logo.jpg\"align=\"top\" id=\"Logo\">
-</div>
-";
-require_once '../includes/menu_administration.php';
 echo "
 
-  
-</div>
-<div id=\"Content\">
 
-<form name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationBorrowed_By()\">
-<table border=\"1\">";
-               
-                 $sql="SELECT * FROM borrowed_by
+
+    <!-- Page content -->
+    <div id=\"page-content-wrapper\">
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <div class=\"col-lg-12\">
+                
+                    
+                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
+
+                   
+                    
+
+                
+                
+<form class=\"form-horizontal\" name=\"myForm\" action=\"?page=borrowed_by&action=edit_exe\" method=\"post\">
+<fieldset>";
+
+
+
+$sql="SELECT * FROM borrowed_by
               				 INNER JOIN book ON book.`book_id` = borrowed_by.`book_id` 
 												INNER JOIN members ON members.`member_id` = borrowed_by.`member_id`
             
                                                              WHERE borrowed_by.borrowed_by_id=".$_GET['id'];
-               
-              				
-               $result=$connection->query($sql);
-               
-               while ($row=$result->fetch_object()){
 
 
-                $members_ID=$row->member_id;
-               	$dueDate=$row->Due_Date;
-               	$returnDate=$row->Return_Date;
-               	$memberName=$row->member_firstname;
-               	$memberLastName=$row->member_lastname;
-               	$BookTitle=$row->Title;
-                $borrowed_by_id=$row->borrowed_by_id;
-                   $bookID=$row->book_id;
-               	
-               	echo "
+$result=$connection->query($sql);
+
+while ($row=$result->fetch_object()){
 
 
+$members_ID=$row->member_id;
+$dueDate=$row->Due_Date;
+$returnDate=$row->Return_Date;
+$memberName=$row->member_firstname;
+$memberLastName=$row->member_lastname;
+$BookTitle=$row->Title;
+$borrowed_by_id=$row->borrowed_by_id;
+$bookID=$row->book_id;
 
+echo "
 
 
 
+<!-- Select Basic -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Member</label>
+  <div class=\"col-md-4\">
+    <select id=\"\" name=\"member_id\" class=\"form-control\">";
+$sql_member="SELECT * FROM members";
+$result_member=$connection->query($sql_member);
+
+while($row_member=$result_member->fetch_object()){
+
+    $selected="";
+    $memberID=$row_member->member_id;
+    $Name=$row_member->member_firstname;
+    $LastName=$row_member->member_lastname;
+
+    if ($memberID==$members_ID){$selected="selected";}
+    if ($memberID!=$members_ID){$selected="";}
+
+    echo "<option value=\"$memberID\" $selected>$Name $LastName </<option>";
 
 
-                 <tr><td>Member</td><td>
-                 
-                 <select name=\"member_id\">";
-
-                   $sql_member="SELECT * FROM members";
-                   $result_member=$connection->query($sql_member);
-
-                   while($row_member=$result_member->fetch_object()){
-
-                       $selected="";
-                       $memberID=$row_member->member_id;
-                       $Name=$row_member->member_firstname;
-                       $LastName=$row_member->member_lastname;
-
-                       if ($memberID==$members_ID){$selected="selected";}
-                       if ($memberID!=$members_ID){$selected="";}
-
-                              echo "<option value=\"$memberID\" $selected>$Name $LastName </<option>";
-                   }
-                 
-                        echo"
-                         
-                         
-               </select>
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                         
-                 <tr><td>Book</td><td>
-                 <select name='book_id'>";
-
-
-                   $sql_book="SELECT * FROM book";
-                    $result_book=$connection->query($sql_book);
-
-                    while ($row_book=$result_book->fetch_object()){
-
-
-                        $selected_book="";
-
-                        $bookID=$row_book->book_id;
-                        $bookTitle=$row_book->Title;
-
-                        if ($bookID==$bookID){$selected_book="selected";}
-                        if ($bookID!=$bookID){$selected_book="";}
-
-
-                        echo "<option value=\" $bookID\" $selected_book > $bookTitle</option> ";
-
-
-                    }
-                echo "
-
-            </select>
+} //End while for members
 
 
 
 
+echo "	
+    
+    </select>
+  </div>
+</div>
 
-                  <tr>
-                            <td>Due_Date</td><td><input type=\"text\" name=\"Due_Date\" value=\"$dueDate\" /></td>
-                                </tr>
-                  <tr>
-                                    <input type=\"hidden\" name=\"id\" value=\"$borrowed_by_id\" />
-                        <td>Return_Date</td><td><input type=\"text\" name=\"Return_Date\" value=\"$returnDate\" /></td>
-                                      </tr>";
+<!-- Select Basic -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Book</label>
+  <div class=\"col-md-4\">
+    <select id=\"\" name=\"book_id\" class=\"form-control\">";
 
+//databese book connection
 
-               }
+$sql_book="SELECT * FROM book";
+$result_book=$connection->query($sql_book);
 
-
-
-
-
-         echo "
-
-
-
-
-                    <tr ><td><input type=\"submit\" name=\"btn\" value=\"EDIT\" /></td></tr>   
-      
+while ($row_book=$result_book->fetch_object()){
 
 
-</table>
-</form>
+    $selected_book="";
 
+    $bookID=$row_book->book_id;
+    $bookTitle=$row_book->Title;
+
+    if ($bookID==$bookID){$selected_book="selected";}
+    if ($bookID!=$bookID){$selected_book="";}
+
+
+    echo "<option value=\" $bookID\" $selected_book > $bookTitle</option> ";
+
+
+}}
+
+echo "
+    </select>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Due Date</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"Due_Date\" value=\"$dueDate\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"textinpu\">Return Date</label>  
+  <div class=\"col-md-4\">
+                                      <input type=\"hidden\" name=\"id\" value=\"$borrowed_by_id\" />
+
+  <input id=\"textinpu\" name=\"Return_Date\" value=\"$returnDate\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
 </div>
 
 
-<div id=\"Footer\"> Stefan Dzalev  </div>
 
+<!-- Button -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"btn\"></label>
+  <div class=\"col-md-4\">
+    <button  name=\"btn\"  type=\"submit\"value=\"save\" class=\"btn btn-block btn-success\">Save</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Menu toggle script -->
+<script>
+    $(\"#menu-toggle\").click( function (e){
+        e.preventDefault();
+        $(\"#wrapper\").toggleClass(\"menuDisplayed\");
+    });
+</script>
 
 </body>
 <script src=\"".$settings['website_url']."administration/js/validationBorrowed_by.js\"></script>
 
 </html>
+
+
+
+
+
+
 ";
 ?>
+
+
+
+
+
 

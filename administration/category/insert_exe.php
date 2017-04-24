@@ -1,12 +1,5 @@
 <?php
 
-session_start();
-
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-	header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 
@@ -19,6 +12,6 @@ $connection->query($sql);//konekcija
 //$id=mysql_insert_id();
 //header("Location:index.php?message=insert&id=".$id);exit();
 	//da te vrati na strana index.php posle vnesvanje vo baza
-header("Location:view.php?message=insert&id=".$_POST['type']);exit();
+header("Location:?page=category&message=insert&id=".$_POST['type']);exit();
 
 ?>

@@ -15,7 +15,7 @@ function delete_Category(id)
     var val=confirm(\"Dali sakate da ja izbrisite kategorijata\");
 
         if(val==true){
-                window.location.href=\"delete_exe.php?id=\"+id
+                window.location.href=\"?page=category&action=delete_exe&id=\"+id
         }else{
                 return false;
         }//end if
@@ -68,12 +68,12 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/category/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Category</a>
+                         <a href=\"".$settings['website_url']."administration?page=category&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Category</a>
                    
                     
                     <div class=\"table - responsive\">
-                            <form action=\"multi_delete . php\" method=\"post\">
-                                <table class=\"table table - bordered table - hover table - striped\">
+                            <form action=\"\" method=\"post\">
+                                <table class=\"table table-bordered table-hover table-striped\">
                                     <thead>
                                         <tr>
                                            <th>Type</th>
@@ -94,7 +94,7 @@ while ($row=$result->fetch_object()){
 
 	echo "<tr bgcolor=$bgcolor>
       <td>$type</td> 
-    <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/category/edit.php?id=$category_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+    <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/?page=category&action=edit&id=$category_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
    			<td style=\"text-align:center\"><a onclick=\" return delete_Category ($category_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
  </tr>";
 

@@ -1,16 +1,7 @@
 <?php
 
 
-session_start();
 
-
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
-
-include '../../class.upload.php';
 
 
 // retrieve eventual CLI parameters
@@ -72,6 +63,6 @@ $connection->query($sql);
 
 
 //vrakanje na index strana za da ne se gledaat podatocite sto gi vnesuvame
-header("Location:view.php?message=insert&id=".$_POST['firstname']);exit();
+header("Location:?page=author&message=insert&id=".$_POST['firstname']);exit();
 
 ?>

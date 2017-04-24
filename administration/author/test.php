@@ -1,12 +1,6 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
@@ -32,7 +26,6 @@ echo "
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -57,40 +50,137 @@ echo "
                     
 
                 
-                 <form class=\"form-horizontal\"  name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationAuthor()\">
+                
+<form class=\"form-horizontal\" name=\"myForm\" action=\"?page=payment&action=edit_exe\" method=\"post\" onsubmit=\"return validationPay()\">
 <fieldset>";
-
-$sql="SELECT * FROM author WHERE author_id=".$_GET['id'];
+$sql="SELECT * FROM payment
+ `payment` INNER JOIN
+bucket ON payment.`order_id` = bucket.`order_id`
+WHERE payment.payment_id=".$_GET['id'];
 $result=$connection->query($sql);
 
+
 while ($row=$result->fetch_object()) {
-    $authorName = $row->firstname;
-    $authorLastname = $row->lastname;
-    $author_id = $row->author_id;
+
+
+    $cardSurname = $row->card_holder_Surname;
+    $cardNumber = $row->card_number;
+    $expDate = $row->card_expiary_date;
+    $cardType = $row->card_type;
+    $SecurityCode = $row->security_code;
+    $orderId = $row->order_id;
+    $paymentID = $row->payment_id;
+    $quantity = $row->Quantity;
+    $Total_Price = $row->Total_Price;
+
     echo "
-
-
 
 <!-- Text input-->
 <div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">First Name</label>  
+  <label class=\"col-md-4 control-label\" for=\"\">card_holder_Surname</label>  
   <div class=\"col-md-4\">
-  <input  name=\"firstname\" type=\"text\"  value=\"$authorName\" class=\"form-control input-md\">
-  
+  <input id=\"\" name=\"card_holder_Surname\" type=\"text\" placeholder=\"\" value=\"$cardSurname\" class=\"form-control input-md\">
+    
   </div>
 </div>
 
 <!-- Text input-->
 <div class=\"form-group\">
-  <label class=\"col-md-4 control-label\" for=\"\">Last Name</label>  
+  <label class=\"col-md-4 control-label\" for=\"\">card_number</label>  
   <div class=\"col-md-4\">
-  <input type=\"hidden\" name=\"id\" value=\"$author_id\" />
-  <input name=\"lastname\" type=\"text\" value=\"$authorLastname\"  class=\"form-control input-md\">
-  
+  <input id=\"\" name=\"card_number\" type=\"text\" placeholder=\"\" value=\"$cardNumber\" class=\"form-control input-md\">
+    
   </div>
-</div>";
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">card_expiary_date</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"card_expiary_date\" type=\"text\" placeholder=\"\" value=\"$expDate\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">card_type</label>  
+  <div class=\"col-md-4\">
+    <input type=\"hidden\" name=\"id\" value=\"$paymentID\" />
+  <input id=\"\" name=\"card_type\" type=\"text\" placeholder=\"\" value=\"$cardType\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">security_code</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"security_code\" type=\"text\" placeholder=\"\"  value=\"$SecurityCode\"  class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+
+
+<!-- Select Basic -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Quantity</label>
+  <div class=\"col-md-4\">
+    <select id=\"\" name=\"order_id\" class=\"form-control\">";
+//databese connect for book table
+    $sql_Quantity = "SELECT * FROM bucket";
+    $result_Quantity = $connection->query($sql_Quantity);
+
+//while for displaying category with selection
+    while ($row_Quantity = $result_Quantity->fetch_object()) {
+
+        $orderID = $row_Quantity->order_id;
+        $quantity = $row_Quantity->Quantity;
+
+
+        echo " <option value=\"$orderID \" >$quantity </option>";
+
+
+    } //End while for category
+
+
+    echo "
+	    			 
+
+    </select>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Total Price</label>
+  <div class=\"col-md-4\">
+    <select id=\"\" name=\"order_id\" class=\"form-control\">";
+//databese connect for book table
+    $sql_TotalPrice = "SELECT * FROM bucket";
+    $result_TotalPrice = $connection->query($sql_TotalPrice);
+
+//while for displaying category with selection
+    while ($row_TotalPrice = $result_TotalPrice->fetch_object()) {
+
+        $orderID = $row_TotalPrice->order_id;
+        $TotalPrice = $row_TotalPrice->Total_Price;
+
+
+        echo " <option value=\"$orderID \" >$TotalPrice </option>";
+
+
+    } //End while for category
 }
+
+
+
 echo "
+    </select>
+  </div>
+</div>
+
 
 
 
@@ -98,13 +188,12 @@ echo "
 <div class=\"form-group\">
   <label class=\"col-md-4 control-label\" for=\"btn\"></label>
   <div class=\"col-md-4\">
-    <button  name=\"btn\"  type=\"submit\" value=\"EDIT\" class=\"btn btn-block btn-success\">Save</button>
+    <button  name=\"btn\"  type=\"submit\"value=\"save\" class=\"btn btn-block btn-success\">Save</button>
   </div>
 </div>
 
 </fieldset>
 </form>
-
 
 
                     </div>
@@ -129,7 +218,7 @@ echo "
 </script>
 
 </body>
-<script src=\"".$settings['website_url']."administration/js/validationAuthor.js\"></script>
+<script src=\"".$settings['website_url']."administration/js/validationPayment.js\"></script>
 
 </html>
 

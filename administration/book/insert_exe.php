@@ -1,16 +1,9 @@
 <?php
 
 
-session_start();
 
 
-require_once '../includes/database_connect.php';
 
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
-
-include '../../class.upload.php';
 
 
 // retrieve eventual CLI parameters
@@ -64,6 +57,6 @@ VALUES ('".$_POST['Title']."',".$_POST['Price'].",'".$_POST['Language']."',".$_P
       
 $connection->query($sql);//execute sql
 
-header("Location:view.php?message=insert&id=".$_POST['Title']);exit();
+header("Location:?page=book&message=insert&id=".$_POST['Title']);exit();
 
 ?>

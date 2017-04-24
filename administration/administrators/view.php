@@ -15,7 +15,7 @@ echo "
         var val=confirm(\"Dali sakate da go izbrisite adminot?\");
 
         if(val==true){
-                window.location.href=\"delete.php?id=\"+id
+                window.location.href=\"?page=administrators&action=delete&id=\"+id
         }else{
                 return false;
             }//end if
@@ -41,7 +41,7 @@ echo "
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-       // include_once '../includes/menu_administration.php';
+
             echo "
 
            
@@ -64,14 +64,13 @@ echo "
         <div class=\"container-fluid\">
             <div class=\"row\">
                 <div class=\"col-lg-12\">
-                
-                    
-                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administrators/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Admin</a>
+
+                     <a href=\"\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
+                         <a href=\"".$settings['website_url']."administration?page=administrators&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Admin</a>
                    
                     
                     <div class=\"table - responsive\">
-                            <form action=\"multi_delete . php\" method=\"post\">
+                            <form action=\"?page=administrators&action=multi_delete\" method=\"post\">
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                         <tr>
@@ -101,7 +100,7 @@ while($row=$result->fetch_object()) {
                                     <tbody>
                                         <tr bgcolor=$bgcolor>
                                         <td>$position</td><td>$user</td><td>$firsName</td><td>$lastName</td>
-                                        <td><a href=\"" . $settings['website_url'] . "administration/administrators/edit.php?id=$admin_id\" ><img src = \"" . $settings['website_url'] . "images/edit.png\" width = \"20\" alt = \"edit\" /></a ></td > ";
+                                        <td><a href=\"" . $settings['website_url'] . "administration?page=administrators&action=edit&id=$admin_id\" ><img src = \"" . $settings['website_url'] . "images/edit.png\" width = \"20\" alt = \"edit\" /></a ></td > ";
 
     if ($user != $_SESSION['user_name']) echo "<td><a onclick=\"return delete_ad($admin_id)\"><img src=\"" . $settings['website_url'] . "images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
     if ($user == $_SESSION['user_name']) echo "<td></td>";

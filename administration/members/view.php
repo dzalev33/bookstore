@@ -17,7 +17,7 @@ function delete_member(id)
     var val=confirm(\"Dali sakate da go izbrisite clenot\");
 
         if(val==true){
-                window.location.href=\"delete_exe.php?id=\"+id
+                window.location.href=\"?page=members&action=delete_exe&id=\"+id
         }else{
                 return false;
         }//end if
@@ -70,11 +70,11 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/members/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Member</a>
+                         <a href=\"".$settings['website_url']."administration?page=members&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Member</a>
                    
                     
                     <div class=\"table - responsive\">
-                            <form action=\"multi_delete . php\" method=\"post\">
+                            <form action=\"?page=members&action=multi_delete\" method=\"post\">
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                         <th>Firstname</th>
@@ -115,7 +115,7 @@ while ($row=$result->fetch_object()){
 	echo"<tr>
         <td>$memberName</td> <td>$memberLastName</td> <td>$memberemail</td> <td>$memberTell_number</td> <td>$memberDOB</td>
          <td>$memberReg_Date</td> <td>$memberZipcode</td> <td>$memberCountry</td> <td>$memberCity</td> <td>$memberStreet</td>
-  <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/members/edit.php?id=$member_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
+  <td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/?page=members&action=edit&id=$member_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
 
 	if($memberDOB!=$_SESSION['user_name']) echo "    			<td style=\"text-align:center\"><a onclick=\"return delete_member($member_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
 	if($memberDOB==$_SESSION['user_name']) echo "  <td> </td> ";

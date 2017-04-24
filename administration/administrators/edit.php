@@ -1,12 +1,6 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
@@ -32,7 +26,6 @@ echo "
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -56,7 +49,7 @@ echo "
                     
 
                 
-                 <form class=\"form-horizontal\"  name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationAdmin()\">
+                 <form class=\"form-horizontal\"  name=\"myForm\" action=\"?page=administrators&action=edit_exe\" method=\"post\" onsubmit=\"return validationAdmin()\">
 <fieldset>";
 $sql="SELECT * FROM administrators WHERE admin_id=".$_GET['id'];
 
@@ -126,7 +119,7 @@ echo "
 <div class=\"form-group\">
   <label class=\"col-md-4 control-label\" for=\"btn\"></label>
   <div class=\"col-md-4\">
-        <button  name=\"btn\"  type=\"submit\" value=\"EDIT\" class=\"btn btn-block btn-success\">Save</button>
+        <button  name=\"btn\"  type=\"submit\" value=\"EDIT\" class=\"btn btn-block btn-success\">Edit</button>
   </div>
 </div>
 

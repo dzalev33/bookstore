@@ -1,12 +1,6 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 $sql="UPDATE borrowed_by SET
@@ -27,7 +21,7 @@ $connection->query($sql);//execute sql
 
 
 
-header("Location:index.php");exit();
+header("Location:?page=borrowed_by");exit();
 
 ?>
 

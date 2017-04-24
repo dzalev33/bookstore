@@ -1,169 +1,214 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
-
-<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-<html>
+<!DOCTYPE html>
+<html lang=\"en\">
 <head>
-
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: #f1f1f1;
-    
-    font-size: small;
-
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-li a.active {
-    background-color: #838783;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-</style>
-
-<link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-<meta name=\"viewport\" content=\"width=device-width\">
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">
-<title>Online Library</title>
+<title>".$settings['title']."</title>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
+    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
+    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
+                    <!--sidebar menu -->
+    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
 </head>
 <body>
 
-<div id=\"Header\">
+<div id=\"wrapper\">
 
-<ul class=\"topnav\" id=\"myTopnav\">
-   <li><a href = \"AdminPage.html\">Admin</a></li>
-  <li><a href=\"Login.html\">Login</a></li>
- 
-</ul>
+    <!-- Sidebar -->
+    <div id=\"sidebar-wrapper\">
 
+        <ul class=\"sidebar-nav\">";
+//menu list connect
 
-
-
-
-</div>
-<div id=\"Left\" >
-<div>
-<img src=\"".$settings['website_url']."administration/img/kniga_logo.jpg\"align=\"top\" id=\"Logo\">
-</div>
-";
-require_once '../includes/menu_administration.php';
-  
 echo "
-  
-</div>
-<div id=\"Content\">
-<form name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationBook()\">
-<table border=\"1\">
-				
-		
-    
-            ";
+       <!--insert administrators-->
+           
+           
+        </ul>
+    </div>";
 
-				$sql="SELECT * FROM book
+echo "
+
+
+
+    <!-- Page content -->
+    <div id=\"page-content-wrapper\">
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <div class=\"col-lg-12\">
+                
+                    
+                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
+
+                   
+                    
+
+                
+                
+<form class=\"form-horizontal\" name=\"myForm\" enctype=\"multipart/form-data\" action=\"?page=book&action=edit_exe\" method=\"post\" onsubmit=\"return validationBook()\">
+<fieldset>";
+$sql="SELECT * FROM book
 				INNER JOIN category ON category.`category_id` = book.`category_id`
 				 WHERE book.book_id=".$_GET['id'];
-				
-				$result=$connection->query($sql);
-				
-    while ($row=$result->fetch_object()){
-    				$bookId=$row->book_id;
-                  $BookTitle=$row->Title;
-                  $bookPrice=$row->Price;
-                  $BookLanguage=$row->Language;
-                  $bookStock=$row->Stock;
-                  $BookcategoryId=$row->category_id;
-                  $booktype=$row->type;
-                    $description=$row->description;
-                  
-               echo " 
-                 <tr>
-               	  <td>Title</td><td><input type=\"text\" name=\"Title\" value=\"$BookTitle\" /></td>
-               	</tr>
-               	 <tr>
-               	  <td>Price</td><td><input type=\"text\" name=\"Price\" value=\"$bookPrice\" /></td>
-               	</tr>
-               	<tr>
-               <td>Language</td> <td><input type=\"text\" name=\" Language\" value=\"$BookLanguage\" /></td>
-                </tr>
-                <tr>
-                <input type=\"hidden\" name=\"id\" value=\"$bookId\" />
-               <td>Stock</td> <td><input type=\"text\" name=\"Stock\" value=\"$bookStock\" /></td>
-                </tr>
-             
-                   <tr> <td>Description</td><td><input type=\"text\" name=\"Title\" value=\"$description\" /></td>	</tr>
-                <tr><td>category</td><td>
-                
- 
- <select  name=\"category_id\" >";
 
-        $sql_categoryType="SELECT * FROM category";
-        $result_categoryType=$connection->query($sql_categoryType);
+$result=$connection->query($sql);
 
-             while ($row_categoryType=$result_categoryType->fetch_object()){
-
-                     $selected="";//deklaracija i inicijalizacija
-
-                     //table category
-                     $type=$row_categoryType->type;
-                     $categoryID=$row_categoryType->category_id;
-
-                     //compare PK==FK
-                     if($categoryID==$BookcategoryId){$selected="selected";}
-                     if($categoryID!=$BookcategoryId){$selected="";}
-                     echo "<option value=\"$categoryID\" $selected>$type</option> ";
-
-             }
-
-
-    }
+while ($row=$result->fetch_object()){
+    $bookId=$row->book_id;
+    $BookTitle=$row->Title;
+    $bookPrice=$row->Price;
+    $BookLanguage=$row->Language;
+    $bookStock=$row->Stock;
+    $BookcategoryId=$row->category_id;
+    $booktype=$row->type;
+    $description=$row->description;
 
     echo "
 
- </select>
-
-   			
-                
-
-        
 
 
-  
-   <tr ><td><input type=\"submit\" name=\"btn\" value=\"EDIT\" /></td></tr>
-</table>
-</form>
 
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Price</label>  
+  <div class=\"col-md-4\">
+  <input  name=\"Price\" value=\"$bookPrice\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
 </div>
 
 
-<div id=\"Footer\"> Stefan Dzalev  </div>
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Title</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"Title\" value=\"$BookTitle\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
 
+
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Language</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"Language\" type=\"text\" value=\"$BookLanguage\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Stock</label>  
+  <div class=\"col-md-4\">
+  <input type=\"hidden\" name=\"id\" value=\"$bookId\" />
+  <input id=\"\" name=\"Stock\" type=\"text\" value=\"$bookStock\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form - group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Description</label>  
+  <div class=\"col-md-4\">
+
+  <input id=\"\" name=\"description\" type=\"text\" value=\"$description\" placeholder=\"\" class=\"form-control input- md\">
+    
+  </div>
+</div>
+
+
+
+
+
+<!-- Select Basic -->
+
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Category</label>
+  <div class=\"col-md-4\">
+    <select id=\"\" name=\"category_id\" class=\"form-control\">";
+    $sql_categoryType="SELECT * FROM category";
+    $result_categoryType=$connection->query($sql_categoryType);
+
+    while ($row_categoryType=$result_categoryType->fetch_object()){
+
+        $selected="";//deklaracija i inicijalizacija
+
+        //table category
+        $type=$row_categoryType->type;
+        $categoryID=$row_categoryType->category_id;
+
+        //compare PK==FK
+        if($categoryID==$BookcategoryId){$selected="selected";}
+        if($categoryID!=$BookcategoryId){$selected="";}
+        echo "<option value=\"$categoryID\" $selected>$type</option> ";
+
+    }
+}
+echo "
+    
+    </select>
+  </div>
+</div>
+</div>
+<!-- Button -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"btn\"></label>
+  <div class=\"col-md-4\">
+    <button  name=\"btn\"  type=\"submit\"value=\"save\" class=\"btn btn-block btn-success\">Save</button>
+  </div>
+</div>
+
+
+
+</fieldset>
+</form>
+
+
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Menu toggle script -->
+<script>
+    $(\"#menu-toggle\").click( function (e){
+        e.preventDefault();
+        $(\"#wrapper\").toggleClass(\"menuDisplayed\");
+    });
+</script>
 
 </body>
 <script src=\"".$settings['website_url']."administration/js/validationBook.js\"></script>
+
 </html>
+
+
+
+
+
+
 ";
 ?>
+
+
+
+
+
+

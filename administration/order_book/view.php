@@ -18,7 +18,7 @@ function delete_orderBook(id)
     var val=confirm(\"Dali sakate da ja izbrisite narackata na kniga?\");
 
         if(val==true){
-                window.location.href=\"delete_exe.php?id=\"+id
+                window.location.href=\"?page=order_book&action=delete_exe&id=\"+id
         }else{
                 return false;
         }//end if
@@ -71,14 +71,14 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/order_book/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Order</a>
+                         <a href=\"".$settings['website_url']."administration/?page=order_book&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Order</a>
                    
                     
                     <div class=\"table - responsive\">
-                            <form action=\"multi_delete . php\" method=\"post\">
+                            <form action=\"\" method=\"post\">
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
-                                        <th>Firstname</th>
+                                        
                                                 <th>Book Title</th>
                                                 <th>Book Price</th>
                                                   <th>Total Price</th>
@@ -104,14 +104,14 @@ while ($row=$result->fetch_object()){
 	$bookPrice=$row->Price;
 	$TotalPrice=$row->Total_Price;
 
-	echo "<tr><td>$BookTitle</td><td>$bookPrice</td><td>$TotalPrice</td> <td>$orderId</td><td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/order_book/edit.php?id=$order_bookID	\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+	echo "<tr><td>$BookTitle</td><td>$bookPrice</td><td>$TotalPrice</td> <td>$orderId</td><td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/?page=order_book&action=edit&id=$order_bookID	\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
    			<td style=\"text-align:center\"><a onclick=\"return delete_orderBook($order_bookID)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
  </tr>";
 }
 
 echo "
                                     </tbody>
-  <tr><td colspan=\"6\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
+  <tr><td colspan=\"5\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger btn-block\" /></td></tr>
 
                                 </table>
                               </form>

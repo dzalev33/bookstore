@@ -1,156 +1,224 @@
 <?php
 
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-	header("Location:".$settings['website_url']."administration/index.php");
-}
 echo "
-
-<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-<html>
+<!DOCTYPE html>
+<html lang=\"en\">
 <head>
-
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: #f1f1f1;
-    
-    font-size: small;
-
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-li a.active {
-    background-color: #838783;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-</style>
-
-<link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-<meta name=\"viewport\" content=\"width=device-width\">
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">
 <title>".$settings['title']."</title>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
+    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
+    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
+                    <!--sidebar menu -->
+    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
 </head>
 <body>
 
-<div id=\"Header\">
+<div id=\"wrapper\">
 
-<ul class=\"topnav\" id=\"myTopnav\">
-   <li><a href = \"AdminPage.html\">Admin</a></li>
-  <li><a href=\"Login.html\">Login</a></li>
- 
-</ul>
+    <!-- Sidebar -->
+    <div id=\"sidebar-wrapper\">
 
-
-
-
-
-</div>
-<div id=\"Left\" >
-<div>
-<img src=\"".$settings['website_url']."administration/img/kniga_logo.jpg\"align=\"top\" id=\"Logo\">
-</div>";
-require_once '../includes/menu_administration.php';
+        <ul class=\"sidebar-nav\">";
+//menu list connect
 echo "
-  
+       <!--insert administrators-->
+           
+           
+        </ul>
+    </div>";
 
-  
-</div>
-<div id=\"Content\">
-<form name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationMember()\">
-<table border=\"1\"  >";
-         
+echo "
+
+
+
+    <!-- Page content -->
+    <div id=\"page-content-wrapper\">
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <div class=\"col-lg-12\">
+                
+                    
+                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
+
+                   
+                    
+
+                
+                
+<form class=\"form-horizontal\" name=\"myForm\" action=\"?page=members&action=edit_exe\" method=\"post\" onsubmit=\"return validationMember()\">
+<fieldset>";
 $sql="SELECT * FROM members
 WHERE members.member_id=".$_GET['id'];
-		$result=$connection->query($sql);
-		
-		
-		while ($row=$result->fetch_object()){
-				$memberID=$row->member_id;
-			$memberName=$row->member_firstname;
-			$memberLastName=$row->member_lastname;
-			$memberemail=$row->email;
-			$memberTell_number=$row->tell_number;
-			$memberDOB=$row->DOB;
-			$memberReg_Date=$row->Registration_Date;
-			$memberZipcode=$row->ZipCode;
-			$memberCountry=$row->Country;
-			$memberCity=$row->City;
-			$memberStreet=$row->Street;
-			
-			echo"
+$result=$connection->query($sql);
 
-			<tr>
-        <td>member firstname</td><td><input  type=\"text\" name=\"member_firstname\" value=\"$memberName\" /></td>
-        </tr>
-         
-         <tr>
-         <td>member lastname</td> <td><input type=\"text\" name=\"member_lastname\" value=\"$memberLastName\" /></td>
-          </tr>
-          </<tr>
-           <td>email</td><td><input type=\"text\" name=\"email\" value=\"$memberemail\" /></td>
-          </tr>
-          </tr>
-          <td>tell number</td><td><input type=\"text\" name=\"tell_number\" value=\"$memberTell_number\" /></td>
-           </tr>
-           <tr>
-           <td>Date of Birth</td><td><input type=\"text\" name=\"DOB\" value=\"$memberDOB\" /></td>
-           </tr>
-           <tr>
-         <td>Registration Date</td><td><input type=\"text\" name=\"Registration_Date\" value=\"$memberReg_Date\" /></td>
-          </tr>
-          <tr>
-          <td>ZipCode</td><td><input type=\"text\" name=\"ZipCode\" value=\"$memberZipcode\" /></td>
-           </tr>
-           <tr>
-           <td>$memberCountry</td><td><input type=\"text\" name=\"Country\" value=\"$memberCountry\" /></td>
-            </tr>
-            <tr>
-            <td>City</td><td><input type=\"text\" name=\"City\" value=\"$memberCity\" /></td>
-             </tr>
-             <tr>
-             <input type=\"hidden\" name=\"id\" value=\"$memberID\" />
-             <td>Street</td><td><input type=\"text\" name=\"Street\" value=\"$memberStreet\" /></td>
-   			 </tr>";
-			
-		}
 
-echo "
-<tr ><td><input type=\"submit\" name=\"btn\" value=\"EDIT\" /></td></tr>
-    									
+while ($row=$result->fetch_object()) {
+	$memberID = $row->member_id;
+	$memberName = $row->member_firstname;
+	$memberLastName = $row->member_lastname;
+	$memberemail = $row->email;
+	$memberTell_number = $row->tell_number;
+	$memberDOB = $row->DOB;
+	$memberReg_Date = $row->Registration_Date;
+	$memberZipcode = $row->ZipCode;
+	$memberCountry = $row->Country;
+	$memberCity = $row->City;
+	$memberStreet = $row->Street;
+
+	echo "
+
+
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\"> Member name</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"member_firstname\" value=\"$memberName\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
     
+  </div>
+</div>
 
-</table>
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Member Surname</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"member_lastname\" value=\"$memberLastName\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
 
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Email</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"email\" type=\"text\" placeholder=\"\" value=\"$memberemail\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">tell number</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"tell_number\" type=\"text\" value=\"$memberTell_number\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Date of Birth</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"DOB\" type=\"text\" placeholder=\"\" value=\"$memberDOB\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Registration_Date</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"Registration_Date\" type=\"text\" placeholder=\"\" value=\"$memberReg_Date\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">ZipCode</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"ZipCode\" type=\"text\" placeholder=\"\"  value=\"$memberZipcode\"  class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Country</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"Country\" type=\"text\" placeholder=\"\" value=\"$memberCountry\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">City</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"City\" type=\"text\" value=\"$memberCity\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Street</label>  
+  <div class=\"col-md-4\">
+  <input type=\"hidden\" name=\"id\" value=\"$memberID\" />
+  <input id=\"\" name=\"Street\" type=\"text\" value=\"$memberStreet\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>
+";
+}
+echo "
+
+
+
+
+<!-- Button -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"btn\"></label>
+  <div class=\"col-md-4\">
+    <button  name=\"btn\"  type=\"submit\"value=\"save\" class=\"btn btn-block btn-success\">Save</button>
+  </div>
+</div>
+
+</fieldset>
 </form>
 
 
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-
-<div id=\"Footer\"> Stefan Dzalev  </div>
-
+<!-- Menu toggle script -->
+<script>
+    $(\"#menu-toggle\").click( function (e){
+        e.preventDefault();
+        $(\"#wrapper\").toggleClass(\"menuDisplayed\");
+    });
+</script>
 
 </body>
 <script src=\"".$settings['website_url']."administration/js/validationMember.js\"></script>
+
 </html>
+
+
+
+
+
+
 ";
 ?>
+
+
+
+
+
+

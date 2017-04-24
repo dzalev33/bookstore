@@ -1,12 +1,5 @@
 <?php
 
-session_start();
-
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
@@ -32,7 +25,6 @@ echo "
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -58,7 +50,7 @@ echo "
 
                 
                 
-<form class=\"form-horizontal\" name=\"myForm\" action=\"insert_exe.php\" method=\"post\" onsubmit=\"return validationMember()\">
+<form class=\"form-horizontal\" name=\"myForm\" action=\"?page=members&action=insert_exe\" method=\"post\" onsubmit=\"return validationMember()\">
 <fieldset>
 
 

@@ -1,127 +1,139 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
 
-if(!isset($_SESSION['user_name'])){
-	header("Location:".$settings['website_url']."administration/index.php");
-}
+
 echo "
-
-<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-<html>
+<!DOCTYPE html>
+<html lang=\"en\">
 <head>
-
-<style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    background-color: #f1f1f1;
-    
-    font-size: small;
-
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-li a.active {
-    background-color: #838783;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-</style>
-
-<link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-<meta name=\"viewport\" content=\"width=device-width\">
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">
 <title>".$settings['title']."</title>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
+    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
+    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
+                    <!--sidebar menu -->
+    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
 </head>
 <body>
 
-<div id=\"Header\">
+<div id=\"wrapper\">
 
-<ul class=\"topnav\" id=\"myTopnav\">
-   <li><a href = \"AdminPage.html\">Admin</a></li>
-  <li><a href=\"Login.html\">Login</a></li>
- 
-</ul>
+    <!-- Sidebar -->
+    <div id=\"sidebar-wrapper\">
 
-
-
-
-
-</div>
-<div id=\"Left\" >
-<div>
-<img src=\"".$settings['website_url']."administration/img/kniga_logo.jpg\"align=\"top\" id=\"Logo\">
-</div>
-";
-require_once '../includes/menu_administration.php';
+        <ul class=\"sidebar-nav\">";
+//menu list connect
 echo "
-  
+       <!--insert administrators-->
+           
+           
+        </ul>
+    </div>";
 
-  
-</div>
-<div id=\"Content\">
-<form name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationBucket()\">
-<table border=\"1\" style=\"border: black\" align=\"center\" >
+echo "
 
 
-    ";
 
-			$sql="SELECT * FROM bucket
+    <!-- Page content -->
+    <div id=\"page-content-wrapper\">
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <div class=\"col-lg-12\">
+                
+                    
+                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
+
+                   
+                    
+
+                
+                
+<form class=\"form-horizontal\" name=\"MyForm\" action=\"?page=bucket&action=edit_exe\" method=\"post\" onsubmit=\"return validationBucket()\">
+<fieldset>";
+
+$sql="SELECT * FROM bucket
 			WHERE bucket.order_id=".$_GET['id'];
-			$result=$connection->query($sql);
-			
-			while ($row=$result->fetch_object()){
-				$order_id=$row->order_id;
-				$quantity=$row->Quantity;
-				$TotalPrice=$row->Total_Price;
-				
-				echo "
+$result=$connection->query($sql);
 
-					<tr>
-						<td>Quantity</td> <td><input type=\"text\" name=\"Quantity\" value=\"$quantity\" /></td>
-					</tr>
-					<tr>
-					<input type=\"hidden\" name=\"id\" value=\"$order_id\" />
-						<td>Total_Price</td> <td><input type=\"text\" name=\"Total_Price\" value=\"$TotalPrice\" /></td>
-					</tr>
+while ($row=$result->fetch_object()) {
+	$order_id = $row->order_id;
+	$quantity = $row->Quantity;
+	$TotalPrice = $row->Total_Price;
 
-							";
+	echo "
 
-	
-				
-			}
+
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"\">Quantity</label>  
+  <div class=\"col-md-4\">
+  <input id=\"\" name=\"Quantity\" value=\"$quantity\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
     
-    echo "
-    <tr ><td><input type=\"submit\" name=\"btn\" value=\"EDIT\" /></td></tr>
-
-
-</table>
-
-</form>
+  </div>
 </div>
 
+<!-- Text input-->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"textinpu\">Total Price</label>  
+  <div class=\"col-md-4\">
+  <input id=\"textinpu\" name=\"Total_Price\" value=\"$TotalPrice\" type=\"text\" placeholder=\"\" class=\"form-control input-md\">
+    
+  </div>
+</div>";
+}
+echo "
 
-<div id=\"Footer\"> Stefan Dzalev  </div>
+<!-- Button -->
+<div class=\"form-group\">
+  <label class=\"col-md-4 control-label\" for=\"btn\"></label>
+  <div class=\"col-md-4\">
+    <button  name=\"btn\"  type=\"submit\"value=\"save\" class=\"btn btn-block btn-success\">Save</button>
+  </div>
+</div>
 
+</fieldset>
+</form>
+
+
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Menu toggle script -->
+<script>
+    $(\"#menu-toggle\").click( function (e){
+        e.preventDefault();
+        $(\"#wrapper\").toggleClass(\"menuDisplayed\");
+    });
+</script>
 
 </body>
 <script src=\"".$settings['website_url']."administration/js/validationBucket.js\"></script>
+
 </html>
+
+
+
+
+
+
 ";
 ?>
-?>
+
+
+
+
+
+

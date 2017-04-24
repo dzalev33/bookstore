@@ -1,12 +1,6 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-	header("Location:".$settings['website_url']."administration/index.php");
-}
 
 
 echo "
@@ -32,7 +26,6 @@ echo "
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -58,7 +51,7 @@ echo "
 
                 
                 
-<form class=\"form-horizontal\" name=\"myForm\" action=\"insert_exe.php\" method=\"post\" onsubmit=\"return validationPay()\">
+<form class=\"form-horizontal\" name=\"myForm\" action=\"?page=payment&action=insert_exe\" method=\"post\" onsubmit=\"return validationPay()\">
 <fieldset>
 
 <!-- Text input-->
@@ -172,14 +165,11 @@ echo "
   </div>
 </div>
 
-
-
-
 <!-- Button -->
 <div class=\"form-group\">
   <label class=\"col-md-4 control-label\" for=\"btn\"></label>
   <div class=\"col-md-4\">
-    <button  name=\"btn\"  type=\"submit\"value=\"save\" class=\"btn btn-block btn-success\">Save</button>
+    <button  name=\"btn\"  type=\"submit\" value=\"save\" class=\"btn btn-block btn-success\">Save</button>
   </div>
 </div>
 

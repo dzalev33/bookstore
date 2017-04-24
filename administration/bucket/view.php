@@ -14,7 +14,7 @@ function delete_ad(id)
     var val=confirm(\"Dali sakate da ja izbrisite narackata\");
 
         if(val==true){
-                window.location.href=\"delete_exe.php?id=\"+id
+                window.location.href=\"?page=bucket&action=delete_exe&id=\"+id
         }else{
                 return false;
         }//end if
@@ -67,11 +67,11 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/bucket/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Bucket</a>
+                         <a href=\"".$settings['website_url']."administration/?page=bucket&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Bucket</a>
                    
                     
                     <div class=\"table - responsive\">
-                            <form action=\"multi_delete . php\" method=\"post\">
+                            <form action=\"\" method=\"post\">
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                         <tr>
@@ -92,7 +92,7 @@ while ($row=$result->fetch_object()){
 	$orderId=$row->order_id;
 
 	echo "<tr> <td>$quantity</td> <td>$TotalPrice</td>
-				<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/bucket/edit.php?id=$orderId\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+				<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/?page=bucket&action=edit&id=$orderId\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
    			<td style=\"text-align:center\"><a onclick=\"return delete_ad($orderId)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
  </tr>";
 

@@ -9,10 +9,10 @@ echo "
 function delete_ad(id)
 {
 
-    var val=confirm(\"Dali sakate da go izbrisite adminot? \");
+    var val=confirm(\"Dali sakate da go izbrisite zapisot? \");
 
         if(val==true){
-                window.location.href=\"delete_exe.php?id=\"+id
+                window.location.href=\"?page=author_book&action=delete_exe&id=\"+id
         }else{
                 return false;
         }//end if
@@ -65,11 +65,11 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/author_book/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">Merge Author and Book</a>
+                         <a href=\"".$settings['website_url']."administration?page=author_book&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">Merge Author and Book</a>
                    
                     
                     <div class=\"table - responsive\">
-                            <form action=\"multi_delete . php\" method=\"post\">
+                            <form action=\"\" method=\"post\">
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                         <tr>
@@ -105,7 +105,7 @@ while ($row=$result->fetch_object()){
 					<td>$firstName - $lastName</td>
 					<td>$title</td>
 					<td>$price</td>
-				<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/author_book/edit.php?id=$authorBook_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+				<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/?page=author_book&action=edit&id=$authorBook_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
    			<td style=\"text-align:center\"><a onclick=\" return delete_ad($authorBook_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
  
 				</tr>";

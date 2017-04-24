@@ -1,13 +1,5 @@
 <?php
 
-session_start();
-
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-    header("Location:".$settings['website_url']."administration/index.php");
-}
-
 
 echo "
 <!DOCTYPE html>
@@ -32,7 +24,7 @@ echo "
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-require_once '../includes/menu_administration.php';
+//require_once '../includes/menu_administration.php';
 echo "
        <!--insert administrators-->
            
@@ -57,7 +49,7 @@ echo "
                     
 
                 
-                 <form class=\"form-horizontal\"  name=\"myForm\" action=\"edit_exe.php\" method=\"post\" onsubmit=\"return validationAuthor()\">
+                 <form class=\"form-horizontal\"  name=\"myForm\" action=\"?page=author&action=edit_exe\" method=\"post\" onsubmit=\"return validationAuthor()\">
 <fieldset>";
 
 $sql="SELECT * FROM author WHERE author_id=".$_GET['id'];

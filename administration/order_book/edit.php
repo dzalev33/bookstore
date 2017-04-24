@@ -1,12 +1,6 @@
 <?php
 
-session_start();
 
-require_once '../includes/database_connect.php';
-
-if(!isset($_SESSION['user_name'])){
-	header("Location:".$settings['website_url']."administration/index.php");
-}
 echo "
 
 <!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
@@ -73,6 +67,7 @@ echo "
   
 </div>
 <div id=\"Content\">
+
 <table border=\"1\" style=\"border: black\" align=\"center\" >
 	
     <tr> <td>book Title</td> <td>Book Price</td><td>Total Price</td></tr>";

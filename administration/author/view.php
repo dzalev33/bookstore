@@ -13,7 +13,7 @@ function delete_author(authorID){
     var val=confirm(\"izbrisi go avtorot?\");
         
         if(val==true){
-            window.location.href=\"delete_exe.php?id=\"+authorID
+            window.location.href=\"?page=author&action=delete_exe&id=\"+authorID
         } else {
             return false;
             
@@ -46,7 +46,7 @@ function delete_author(authorID){
 
         <ul class=\"sidebar-nav\">";
 //menu list connect
-//require_once '../includes/menu_administration.php';
+
 echo "
        <!--insert administrators-->
            
@@ -73,11 +73,11 @@ echo "
                 
                     
                      <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration/author/insert.php\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Author</a>
+                         <a href=\"".$settings['website_url']."administration?page=author&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Author</a>
                    
                     
                     <div class=\"table - responsive\">
-                            <form action=\"multi_delete . php\" method=\"post\">
+                            <form action=\"?page=author&action=multi_delete\" method=\"post\">
                                 <table class=\"table table - bordered table - hover table - striped\">
                                     <thead>
                                         <tr>
@@ -106,7 +106,7 @@ while ($row=$result->fetch_object()){
     $img_path=$settings['website_url']."upload/".$Photo;
 
     echo "<tr><td><img src=\"$img_path\" width=\"40\" alt=\"$Photo\"></td><td>$authorName</td> <td>$authorLastname</td>
-                         			<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/author/edit.php?id=$author_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
+                         			<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/?page=author&action=edit&id=$author_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>";
     //delete
 
     if($authorName!=$_SESSION['user_name']) 	echo "<td><a onclick=\"return delete_author($author_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>";
@@ -157,7 +157,7 @@ echo "
 
 ";
 
-return "test";
+
 ?>
 
 
