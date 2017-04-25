@@ -2,10 +2,8 @@
 
 
 
+
 echo "
-<!DOCTYPE html>
-<html lang=\"en\">
-<head>
 
 <script>
 
@@ -21,42 +19,6 @@ function delete_Category(id)
         }//end if
 }//end function
 </script>
-
-<title>".$settings['title']."</title>
-    <meta charset=\"utf-8\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
-    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
-    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
-    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-                    <!--sidebar menu -->
-    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
-</head>
-<body>
-
-<div id=\"wrapper\">
-
-    <!-- Sidebar -->
-    <div id=\"sidebar-wrapper\">
-
-        <ul class=\"sidebar-nav\">";
-//menu list connect
-//require_once '../includes/menu_administration.php';
-echo "
-       <!--insert administrators-->
-           
-           
-        </ul>
-    </div>";
-
-$message="";
-if(!isset($_GET['id']))$_GET['id']="";
-if(isset($_GET['message']) && $_GET['message']=='insert')$message=" Uspesno vnesovte nov zapis";
-if(isset($_GET['message']) && $_GET['message']=='delete')$message=" Uspesno izbrisavte zapis";
-if(isset($_GET['message']) && $_GET['message']=='update')$message=" Uspesno editiravte zapis";
-
-
-echo "
 
 
 

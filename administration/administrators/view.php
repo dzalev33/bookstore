@@ -1,13 +1,8 @@
-<?php
-
-
-
-
-echo "
-<!DOCTYPE html>
-<html lang=\"en\">
-<head>
-
+<?php 
+echo"
+ 
+ 
+ 
 <script>
 
         function delete_ad(id){
@@ -15,63 +10,29 @@ echo "
         var val=confirm(\"Dali sakate da go izbrisite adminot?\");
 
         if(val==true){
-                window.location.href=\"?page=administrators&action=delete&id=\"+id
+                window.location.href=\"?page=administrators&action=delete_exe&id=\"+id
         }else{
                 return false;
             }//end if
         }//end function
 </script>
 
-<title>".$settings['title']."</title>
-    <meta charset=\"utf-8\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
-    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
-    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
-    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-                    <!--sidebar menu -->
-    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
-</head>
-<body>
-
-<div id=\"wrapper\">
-
-    <!-- Sidebar -->
-
-
-        <ul class=\"sidebar-nav\">";
-//menu list connect
-
-            echo "
-
-           
-   
-    ";
-
-$message="";
-if(!isset($_GET['id']))$_GET['id']="";
-if(isset($_GET['message']) && $_GET['message']=='insert')$message=" Uspesno vnesovte nov zapis";
-if(isset($_GET['message']) && $_GET['message']=='delete')$message=" Uspesno izbrisavte zapis";
-if(isset($_GET['message']) && $_GET['message']=='update')$message=" Uspesno editiravte zapis";
-
-
-echo "
-
 
 
     <!-- Page content -->
     <div id=\"page-content-wrapper\">
+    
         <div class=\"container-fluid\">
             <div class=\"row\">
                 <div class=\"col-lg-12\">
 
-                     <a href=\"\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
+                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
                          <a href=\"".$settings['website_url']."administration?page=administrators&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Admin</a>
                    
                     
-                    <div class=\"table - responsive\">
+                    <div class=\"table-responsive\">
                             <form action=\"?page=administrators&action=multi_delete\" method=\"post\">
-                                <table class=\"table table - bordered table - hover table - striped\">
+                                <table class=\"table table-bordered table-hover table-striped\">
                                     <thead>
                                         <tr>
                                             <th>Position</th>
@@ -111,41 +72,28 @@ while($row=$result->fetch_object()) {
 
 
     echo " </tr>";
+
+
 }//end of While
 echo "
                                     </tbody>
                                      <tr><td colspan=\"6\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
                                 </table>
-                              </form>
-                    </div>
-                    
-                    
-                    
-                    
-                    
+                  
+
+
+                        
+
+
+
+                           
+                    </div>    
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
-<!-- Menu toggle script -->
-<script>
-    $(\"#menu-toggle\").click( function (e){
-        e.preventDefault();
-        $(\"#wrapper\").toggleClass(\"menuDisplayed\");
-    });
-</script>
-
-</body>
-</html>
-
-
-
-
-
-
+                <!--END PAGE -->
 ";
 ?>
 

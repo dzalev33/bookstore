@@ -2,35 +2,6 @@
 
 
 
-echo "
-<!DOCTYPE html>
-<html lang=\"en\">
-<head>
-<title>".$settings['title']."</title>
-    <meta charset=\"utf-8\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-    <link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">
-    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
-    <script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
-    <link href=\"".$settings['website_url']."administration/css/style.css\" rel=\"stylesheet\" type=\"text/css\">
-                    <!--sidebar menu -->
-    <link rel=\"stylesheet\" href=\"../css/sidebar.css\">
-</head>
-<body>
-
-<div id=\"wrapper\">
-
-    <!-- Sidebar -->
-    <div id=\"sidebar-wrapper\">
-
-        <ul class=\"sidebar-nav\">";
-//menu list connect
-echo "
-       <!--insert administrators-->
-           
-           
-        </ul>
-    </div>";
 
 echo "
 
@@ -195,20 +166,6 @@ echo "
     </div>
 
 </div>
-
-<!-- Menu toggle script -->
-<script>
-    $(\"#menu-toggle\").click( function (e){
-        e.preventDefault();
-        $(\"#wrapper\").toggleClass(\"menuDisplayed\");
-    });
-</script>
-
-</body>
-<script src=\"".$settings['website_url']."administration/js/validationMember.js\"></script>
-
-</html>
-
 
 
 

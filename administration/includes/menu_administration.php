@@ -6,12 +6,9 @@
 
 
 echo "
-
-    <div id=\"sidebar-wrapper\">
-  
-
-    <ul class=\"sidebar-nav\">
-        <li class=\"active\">
+        <div id=\"sidebar-wrapper\">
+            <ul class=\"sidebar-nav\">
+        <li>
               <a href=\"".$settings['website_url']."administration?page=administrators\"><i class=\"fa fa-fw fa-dashboard\"></i> Administrators</a>
         </li>
         <li>
@@ -46,10 +43,6 @@ echo "
           <a href=\"".$settings['website_url']."administration/logout.php\" ><i class=\"fa fa-fw fa-power-off\"></i>Logout</a>
         </li>
     </ul>
-    <!--tuka se klava menito-->
-    
-
-
 </div>
 
 

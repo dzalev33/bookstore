@@ -1,9 +1,14 @@
 <html>
 
 <head>
-    <title>Login Page</title>
+    <title></title>
 
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>                    <!--sidebar menu -->
+    <link rel="stylesheet" href="css/sidebar.css">
 
 </head>
 
@@ -24,54 +29,91 @@ error_reporting(E_ALL);
 
 //zapocnuvanje na sesija
 session_start();
+include '../class/database.php';
 require_once 'includes/database_connect.php';
 require_once '../class.upload.php';
+require_once 'includes/menu_administration.php';
 
 
 if(!isset($_SESSION['user_name'])){
    // ako username e razlicno od sesijata (ako e gresno najaven administrator) prikazi ja login formata
     ?>
 
-    <form action="session.php" method="post" id="frmLogin">
 
-        <div class="field-group">
-            <div><label for="login">Username</label></div>
-            <div><input name="user_name" type="text" class="input-field"></div>
-        </div>
-        <div class="field-group">
-            <div><label for="password">Password</label></div>
-            <div><input name="password" type="password" class="input-field"> </div>
-        </div>
-        <div class="field-group">
-            <div><input type="submit" name="login" value="Login" class="form-submit-button"></span></div>
+    <div class="container">
+
+        <h3>Log In Demo</h3>
+
+        <!-- data-toggle lets you display modal without any JavaScript -->
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#popUpWindow">Open Modal</button>
+
+        <div class="modal fade" id="popUpWindow">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Log In</h3>
+                    </div>
+
+                    <!-- body (form) -->
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- button -->
+                    <div class="modal-footer">
+                        <button class="btn btn-primary btn-block">Submit</button>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
-    </form>
+    </div>
+    
+    
         <?php
 
 }
 //ako e logiranjeto uspesno odi na administration index.php.
+
+
 else {
+
     //previerka dali vo URL ima akcija (action), ako ima akcija odnesi na soodvetna strana (edtit ili insert)
 
     if(isset($_GET['action'])) {
+        include_once 'includes/templates/header.php';
+
         include_once $_GET['page'] . '/'.$_GET['action'].'.php';
 
+        include_once 'includes/templates/footer.php';
 
     }
     //ako nema kliknato nikakva akcija odnesi na view strana
     else {
+
+        include_once 'includes/templates/header.php';
         include_once $_GET['page'] . '/view.php';
+        include_once 'includes/templates/footer.php';
+
     }
 
-    include_once 'includes/menu_administration.php';
 
 }
 
 ?>
 
 
-        
 
 
 </body>

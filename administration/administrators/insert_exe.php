@@ -6,5 +6,7 @@ VALUES ('".$_POST['position']."','".$_POST['user_name']."','".sha1($_POST['passw
 
 $connection->query($sql);//execute sql
 
-header("Location:?page=administrators&message=insert");exit();
+//header("Location:?page=administrators&message=insert");exit();
+echo "<script>window.location.replace(\"?page=administrators&message=insert\");
+</script>";
 ?>
