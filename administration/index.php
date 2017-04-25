@@ -42,10 +42,10 @@ if(!isset($_SESSION['user_name'])){
 
     <div class="container">
 
-        <h3>Log In Demo</h3>
+        <h3>Administrators page</h3>
 
         <!-- data-toggle lets you display modal without any JavaScript -->
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#popUpWindow">Open Modal</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#popUpWindow">Login</button>
 
         <div class="modal fade" id="popUpWindow">
             <div class="modal-dialog">
@@ -59,20 +59,25 @@ if(!isset($_SESSION['user_name'])){
 
                     <!-- body (form) -->
                     <div class="modal-body">
-                        <form role="form">
+                        <form role="form" action="session.php" method="post" id="frmLogin">
+
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email">
+                                <input name="user_name" type="text"  class="form-control input-field" placeholder="Username">
                             </div>
+
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password">
+                                <input  class="form-control input-field" placeholder="Password" name="password" type="password">
                             </div>
+
+                            <!-- button -->
+                            <div class="modal-footer">
+                                <button type="submit" name="login" value="Login" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+
                         </form>
                     </div>
 
-                    <!-- button -->
-                    <div class="modal-footer">
-                        <button class="btn btn-primary btn-block">Submit</button>
-                    </div>
+
 
                 </div>
             </div>
