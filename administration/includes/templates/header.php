@@ -1,23 +1,17 @@
 <?php
-
-
-///prikazuvcanje na greski (da se trgni)
+ob_start();
+///prikazuvanje na greski (da se trgni)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 //////////////////////////////
-
 echo "
 <!DOCTYPE html>
 <html lang=\"en\">
 <head>
 
-
-<title>".$settings['title']."</title>
-
 </head>
 <body>
-
                  <div id=\"wrapper\">
                 
                     <!-- Sidebar -->
@@ -41,7 +35,6 @@ echo "
                         <li>
                             <a href =\"".$settings['website_url']."administration?page=bucket\">bucket</a>
                         </li>
-                        
                         <li>
                            <a href=\"".$settings['website_url']."administration?page=category\">category</a>
                         </li>
@@ -59,11 +52,15 @@ echo "
                         </li>
                    </ul>
                    <!-- end sidebar div--> 
-                </div>";
-
+                </div>
+                ";
 $message="";
+$message_error="";
 if(!isset($_GET['id']))$_GET['id']="";
 if(isset($_GET['message']) && $_GET['message']=='insert')$message=" Uspesno vnesovte nov zapis";
 if(isset($_GET['message']) && $_GET['message']=='delete')$message=" Uspesno izbrisavte zapis";
 if(isset($_GET['message']) && $_GET['message']=='update')$message=" Uspesno editiravte zapis";
+
+
+if(isset($_GET['message_error']) && $_GET['message_error']=='short_username')$message_error=" Ve molime vnesete ispraven username";
 

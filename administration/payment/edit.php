@@ -23,7 +23,7 @@ echo "
 <form class=\"form-horizontal\" name=\"myForm\" action=\"?page=payment&action=edit_exe\" method=\"post\" onsubmit=\"return validationPay()\">
 <fieldset>";
 $sql="SELECT * FROM payment
- `payment` INNER JOIN
+ INNER JOIN
 bucket ON payment.`order_id` = bucket.`order_id`
 WHERE payment.payment_id=".$_GET['id'];
 $result=$connection->query($sql);

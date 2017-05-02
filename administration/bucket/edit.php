@@ -24,9 +24,7 @@ echo "
                 
 <form class=\"form-horizontal\" name=\"MyForm\" action=\"?page=bucket&action=edit_exe\" method=\"post\" onsubmit=\"return validationBucket()\">
 <fieldset>";
-
-$sql="SELECT * FROM bucket
-			WHERE bucket.order_id=".$_GET['id'];
+$sql="SELECT * FROM bucket WHERE order_id=".$_GET['id'];
 $result=$connection->query($sql);
 
 while ($row=$result->fetch_object()) {

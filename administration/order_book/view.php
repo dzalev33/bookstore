@@ -42,7 +42,7 @@ function delete_orderBook(id)
                                                   <th>Total Price</th>
                                               
                                                               <th>Order ID</th>
-                                                               <th>Edit</th>
+                                                               
                                                                 <th>Delete</th>
                                           </tr>
                                     </thead>";
@@ -62,14 +62,14 @@ while ($row=$result->fetch_object()){
 	$bookPrice=$row->Price;
 	$TotalPrice=$row->Total_Price;
 
-	echo "<tr><td>$BookTitle</td><td>$bookPrice</td><td>$TotalPrice</td> <td>$orderId</td><td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/?page=order_book&action=edit&id=$order_bookID	\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+	echo "<tr><td>$BookTitle</td><td>$bookPrice</td><td>$TotalPrice</td> <td>$orderId</td>
    			<td style=\"text-align:center\"><a onclick=\"return delete_orderBook($order_bookID)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
  </tr>";
 }
 
 echo "
                                     </tbody>
-  <tr><td colspan=\"5\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger btn-block\" /></td></tr>
+  <tr><td colspan=\"4\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger btn-block\" /></td></tr>
 
                                 </table>
                               </form>

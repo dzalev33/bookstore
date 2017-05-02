@@ -1,9 +1,25 @@
 <?php
 
 
-$sql="DELETE FROM order_book WHERE order_book_id=".$_GET['id'];
 
-$connection->query($sql);//execute sql
+$objectDelete= new Database();
+$table_name="order_book";
+$pk="order_book_id";
+$pk_value=$_GET['id'];
 
-header("Location:?page=order_book&message=delete");exit();
+
+
+
+
+
+$objectDelete->deleteINT($table_name,$pk,$pk_value);
+
+
+
+echo "<script>window.location.replace(\"?page=order_book&message=delete\");</script>";
+
+
+
+
+
 ?>

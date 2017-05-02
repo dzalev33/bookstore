@@ -39,7 +39,7 @@ function delete_ad(id)
                                                 <th>Author</th>
                                             <th>Book</th>
                                             <th>Price</th>
-                                            <th>Edit</th>
+                                            
                                             <th>Delete</th>
                                           </tr>
                                     </thead>";
@@ -68,7 +68,7 @@ while ($row=$result->fetch_object()){
 					<td>$firstName - $lastName</td>
 					<td>$title</td>
 					<td>$price</td>
-				<td style=\"text-align:center\"><a href=\"".$settings['website_url']."administration/?page=author_book&action=edit&id=$authorBook_id\"><img src=\"".$settings['website_url']."images/edit.png\" width=\"20\" alt=\"edit\" /></a></td>
+			
    			<td style=\"text-align:center\"><a onclick=\" return delete_ad($authorBook_id)\"><img src=\"".$settings['website_url']."images/delete.png\" width=\"20\" alt=\"delete\" /></a></td>
  
 				</tr>";

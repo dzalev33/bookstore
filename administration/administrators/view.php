@@ -1,38 +1,30 @@
-<?php 
-echo"
- 
- 
- 
+<?php
+echo'
 <script>
-
         function delete_ad(id){
 
-        var val=confirm(\"Dali sakate da go izbrisite adminot?\");
+        var val=confirm("Dali sakate da go izbrisite adminot?");
 
         if(val==true){
-                window.location.href=\"?page=administrators&action=delete_exe&id=\"+id
+                window.location.href="?page=administrators&action=delete_exe&id="+id
         }else{
                 return false;
             }//end if
         }//end function
 </script>
-
-
-
+';?>
     <!-- Page content -->
-    <div id=\"page-content-wrapper\">
+    <div id="page-content-wrapper">
     
-        <div class=\"container-fluid\">
-            <div class=\"row\">
-                <div class=\"col-lg-12\">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
 
-                     <a href=\"#\" class=\"btn btn-success\" id=\"menu-toggle\">Menu</a>
-                         <a href=\"".$settings['website_url']."administration?page=administrators&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Admin</a>
-                   
-                    
-                    <div class=\"table-responsive\">
-                            <form action=\"?page=administrators&action=multi_delete\" method=\"post\">
-                                <table class=\"table table-bordered table-hover table-striped\">
+                     <a href="#" class="btn btn-success" id="menu-toggle">Menu</a>
+                      <?php echo"   <a href=\"".$settings['website_url']."administration?page=administrators&action=insert\" class=\"btn btn-success pull-right\" id=\"menu-toggle\">New Admin</a>" ?>
+                    <div class="table-responsive">
+                            <form action="?page=administrators&action=multi_delete" method="post">
+                                <table class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
                                             <th>Position</th>
@@ -43,9 +35,9 @@ echo"
                                             <th>Delete</th>
                                             <th>multi delete</th>
                                           </tr>
-                                    </thead>";
+                                    </thead>
+                                    <?php
 $sql="SELECT * FROM administrators";
-
 $result=$connection->query($sql);
 while($row=$result->fetch_object()) {
     $user = $row->user_name;
@@ -57,7 +49,6 @@ while($row=$result->fetch_object()) {
     $bgcolor = "yellow";
     if ($admin_id == $_GET['id']) $bgcolor = "blue";
     echo "
-
                                     <tbody>
                                         <tr bgcolor=$bgcolor>
                                         <td>$position</td><td>$user</td><td>$firsName</td><td>$lastName</td>
@@ -69,36 +60,17 @@ while($row=$result->fetch_object()) {
 
     if ($user != $_SESSION['user_name']) echo "<td><input type=\"checkbox\" name=\"delete[]\" value=\"$admin_id\"  ></td>";
     if ($user == $_SESSION['user_name']) echo "<td></td>";
-
-
     echo " </tr>";
 
-
 }//end of While
-echo "
+?>
                                     </tbody>
-                                     <tr><td colspan=\"6\"></td><td>  <input type=\"submit\" name=\"btn_delete\" value=\"delete all\" class=\"btn-danger\" /></td></tr>
-                                </table>
-                  
-
-
-                        
-
-
-
-                           
+                                     <tr><td colspan="6"></td><td>  <input type="submit" name="btn_delete" value="delete all" class="btn-danger" /></td></tr>
+                                </table> 
                     </div>    
                 </div>
             </div>
         </div>
     </div>
 </div>
-                <!--END PAGE -->
-";
-?>
-
-
-
-
-
-
+            <!--END PAGE -->

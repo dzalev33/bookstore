@@ -2,12 +2,18 @@
 
 
 
+$objectDelete= new Database();
+$table_name="book";
+$pk="book_id";
+$pk_value=$_GET['id'];
 
-//brisenje na zapis od bazata po url
-$sql="DELETE FROM book WHERE book_id=".$_GET['id'];
 
-//konekcija so baza
-$connection->query($sql);//execute sql
+
+
+
+$objectDelete->deleteINT($table_name,$pk,$pk_value);
+
+
 
 //vrakanje na index
 header("Location:?page=book&message=delete");exit();

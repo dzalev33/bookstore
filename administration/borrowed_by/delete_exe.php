@@ -1,11 +1,20 @@
 <?php
 
 
+$objectDelete= new Database();
+$table_name="borrowed_by";
+$pk="borrowed_by_id";
+$pk_value=$_GET['id'];
 
 
-$sql="DELETE FROM borrowed_by WHERE borrowed_by_id=".$_GET['id'];
 
-$connection->query($sql);//execute sql
+
+
+
+
+$objectDelete->deleteINT($table_name,$pk,$pk_value);
+
+
 
 header("Location:?page=borrowed_by&message=delete");exit();
 ?>

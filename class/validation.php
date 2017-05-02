@@ -1,7 +1,7 @@
 <?php
 
 
-class Database {
+class Database{
     //parametri za konektiranje na baza
     private $database_server="localhost";
     private $database_username="root";
@@ -15,20 +15,9 @@ class Database {
     public function __construct(){
 
 //konstruktor
-       // $this->connection = new mysqli($this->database_server,$this->database_username,$this->database_password,$this->database_name);
-        $this->connection = new PDO("mysql:host=".$this->database_server.";dbname=".$this->database_name."",$this->database_username,$this->database_password);
-
+        $this->connection = new mysqli($this->database_server,$this->database_username,$this->database_password,$this->database_name);
     }
 
-    //funkcija za izvrsuvanje na sql
-    public function exeQuery($sql){
-        $con=$this->connection;
-
-        /* if ($con->connect_error()) {
-             die("Connection failed: " . $this->connection->connect_error);
-         }*/
-        $con->exec($sql);//execute sql
-    }
 
     //funkciii delete
     public function deleteINT($table_name,$pk,$pk_value){
@@ -45,6 +34,17 @@ class Database {
         $this->exeQuery($sql);//call function
 
     }
+
+
+    //funkcija za konekcija so bazata
+    public function exeQuery($sql){
+        $con=$this->connection;
+
+
+        $con->query($sql);//execute sql
+    }
+
+
 
 
     public function editINT($table_name,$column_value,$pk,$pk_value){

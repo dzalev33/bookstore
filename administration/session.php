@@ -3,12 +3,20 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
- //pocetok na sesija
+//pocetok na sesija
 session_start();
 require_once 'includes/database_connect.php';
 
 //konekcija so baza
 //require_once 'includes/database_connect.php';
+$username="";
+$message_error="";
+if(isset($_POST['user_name']) && strlen($_POST['user_name']>3)){
+
+    $username=$_POST['user_name'];
+    $_SESSION['message_error'] ="nesto ne e vo red";
+    header("location:".$settings['website_url']."administration");exit();
+}
 
 //Sql za zemanje na user i pass od bazata
 $sql="SELECT * FROM administrators WHERE user_name LIKE \"".$_POST['user_name']."\"
@@ -21,21 +29,21 @@ if($result){      //vo while naedvame koj promenlivi ke gi zemime od bazata
         $user=$row->user_name;
         $admin_id=$row->admin_id;
 
-                //ako adminID e razlicno od 0 i go najde vo bazata odnesi na administratorskata strana (logirano)
-            if( $admin_id!=0) {
-                $_SESSION['user_name'] = $_POST['user_name'];
-                header("Location:".$settings['website_url']."administration?page=administrators");exit();
+        //ako adminID e razlicno od 0 i go najde vo bazata odnesi na administratorskata strana (logirano)
+        if( $admin_id!=0) {
+            $_SESSION['user_name'] = $_POST['user_name'];
+            header("Location:".$settings['website_url']."administration?page=administrators");exit();
 
-            }else{
+        }else{
 
 
-                header("location:".$settings['website_url']."administration");exit();
+            header("location:".$settings['website_url']."administration");exit();
 
-            }
+        }
     }
 
 }
 
-    //login form
+//login form
 
-    header("location:".$settings['website_url']."administration");exit(); ?>
+header("location:".$settings['website_url']."administration");exit(); ?>

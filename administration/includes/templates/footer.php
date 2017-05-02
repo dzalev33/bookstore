@@ -1,10 +1,6 @@
 <?php
 
-
 echo "
-                    
-            
-
  <!-- Menu toggle script -->
         <script>
             $(\"#menu-toggle\").click( function (e){
@@ -12,20 +8,5 @@ echo "
                 $(\"#wrapper\").toggleClass(\"menuDisplayed\");
             });
         </script>
-
 </body>
-</html>
-
-
-
-
-
-
-";
-?>
-
-
-
-
-
-
+</html>"; ?>

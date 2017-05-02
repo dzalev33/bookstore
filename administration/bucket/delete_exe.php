@@ -2,9 +2,23 @@
 
 
 
-$sql="DELETE FROM bucket WHERE order_id=".$_GET['id'];
 
-$connection->query($sql);//execute sql
+$objectDelete= new Database();
+$table_name="bucket";
+$pk="order_id";
+$pk_value=$_GET['id'];
+
+
+
+
+
+
+$objectDelete->deleteINT($table_name,$pk,$pk_value);
+
+
+
+
+
 
 header("Location:?page=bucket");exit();
 ?>

@@ -17,4 +17,6 @@ for($counter=0;$counter<$number_of_value;$counter++){
 }
 
 header("Location:?page=administrators");exit();
+echo "<script>window.location.replace(\"?page=administrators&message=delete\");</script>";
+
 ?>
